@@ -36,7 +36,7 @@
 
             <figure class="item">
                
-  <%@page import="servlet.LoginBean"%>  
+  <%@page import="controlador.Login.LoginBean"%>  
 
                 <h1>Você está logado!</h1>  
                 <%

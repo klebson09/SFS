@@ -31,7 +31,7 @@
     </servlet>
     <servlet>
         <servlet-name>ControllerLogin</servlet-name>
-        <servlet-class>servlet.ControllerLogin</servlet-class>
+        <servlet-class>controlador.Login.ControllerLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerEndereco</servlet-name>

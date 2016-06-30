@@ -1,4 +1,4 @@
-package servlet;
+package controlador.Login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,18 +29,12 @@ public class ControllerLogin extends HttpServlet {
         bean.setPassword(password);
         request.setAttribute("bean", bean);
 
-        System.out.println("pegando o email e password ------->>>");
-
-        System.out.println(email + password);
         boolean status = true;
-//                System.out.println("exibe o email e password ------->>>");
-
+        
         try {
             status = bean.validate(email, password);
-            System.out.println("passou login");
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ControllerLogin.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("nao passou");
         }
         if (status) {
             // Create a session object if it is already not  created.

@@ -28,23 +28,16 @@ public class DAOPessoa {
             System.out.println(con.getAutoCommit());
             try ( // seta os valores
                     PreparedStatement stmt = con.prepareStatement(sql)) {
-                  stmt.setString(1, pessoa.getNome());
-                  stmt.setString(2, pessoa.getDataNasc());
-                  stmt.setString(3, pessoa.getCpf());
-                  stmt.setString(4, pessoa.getRg());
-                  stmt.setString(5, pessoa.getEmail());
-                  stmt.setString(6, pessoa.getPwd());
-//                stmt.setString(7, pessoa.getLogradouro());
-//                stmt.setInt(8, pessoa.getNumero());
-//                stmt.setString(9, pessoa.getComplemento());
-//                stmt.setString(10, pessoa.getCidade());
-//                stmt.setString(11, pessoa.getEstado());
-//                stmt.setString(12, pessoa.getCep());
+                        stmt.setString(1, pessoa.getNome());
+                        stmt.setString(2, pessoa.getDataNasc());
+                        stmt.setString(3, pessoa.getCpf());
+                        stmt.setString(4, pessoa.getRg());
+                        stmt.setString(5, pessoa.getEmail());
+                        stmt.setString(6, pessoa.getPwd());
 
-// executa
-                stmt.execute();
-                stmt.close();
-            }
+                        stmt.execute();
+                        stmt.close();
+                    }
         } catch (SQLException e) {
             System.out.println("----------------->>>>>>>>>>ERROO NO DAOPessoa SQLException       <<<<<----------");
             e.printStackTrace();
@@ -76,16 +69,15 @@ public class DAOPessoa {
                 pessoa = new Pessoa();
 
 //Recuperando os dados do result set.
-                pessoa.setIdPessoa(Integer.MIN_VALUE);
-                pessoa.setNome(rs.getString("idPessoa"));
+                pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("dataNasc"));
-                pessoa.setCpf(rs.getString("cpf"));
-                pessoa.setRg(rs.getString("rg"));
+                pessoa.setDataNasc(rs.getString("data_nasc"));
+                pessoa.setCpf(rs.getString("CPF"));
+                pessoa.setRg(rs.getString("RG"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setPwd(rs.getString("pwd"));
-               // System.out.println(query);
-                
+                // System.out.println(query);
+
                 DAOEndereco daoEndereco = new DAOEndereco();
                 daoEndereco.adicionar(endereco);
             }
@@ -114,7 +106,7 @@ public class DAOPessoa {
         }
     }
 
-    public Pessoa buscarPessoa(String cpfPessoa) {
+    public Pessoa buscarPessoaPorCPF(String cpfPessoa) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -125,7 +117,7 @@ public class DAOPessoa {
             con = DriverManager.getConnection(url, "root", "");
             //conectando stmt = con.createStatement(); //criando um statement
             stmt = con.prepareStatement("SELECT idPessoa, nome, data_nasc, CPF, RG, email, pwd FROM pessoa WHERE CPF=" + "'" + cpfPessoa + "'");
-            
+
             rs = stmt.executeQuery(); //executando a query
 
             // o result set contém os resultados da operação
@@ -136,13 +128,13 @@ public class DAOPessoa {
 //Recuperando os dados do result set.
                 pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("dataNasc"));
-                pessoa.setCpf(rs.getString("cpf"));
-                pessoa.setRg(rs.getString("rg"));
+                pessoa.setDataNasc(rs.getString("data_nasc"));
+                pessoa.setCpf(rs.getString("CPF"));
+                pessoa.setRg(rs.getString("RG"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setPwd(rs.getString("pwd"));
                 System.out.println(pessoa);
-                
+
             }
         } catch (ClassNotFoundException ex) {
             //Problemas no carregamento do driver
@@ -167,7 +159,67 @@ public class DAOPessoa {
             }
 
         }
-        
+
+        return pessoa;
+    }
+
+    public Pessoa buscarPessoa(String email, String senha) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Pessoa pessoa = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idPessoa, nome, data_nasc, CPF, RG, email, pwd "
+                    + "FROM pessoa "
+                    + "WHERE email=" + "'" + email + "'"
+                    + "AND pwd=" +"'" + senha + "'");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+
+                pessoa = new Pessoa();
+
+                //Recuperando os dados do result set.
+                pessoa.setIdPessoa(rs.getInt("idPessoa"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setDataNasc(rs.getString("data_nasc"));
+                pessoa.setCpf(rs.getString("CPF"));
+                pessoa.setRg(rs.getString("RG"));
+                pessoa.setEmail(rs.getString("email"));
+                pessoa.setPwd(rs.getString("pwd"));
+                System.out.println(pessoa);
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
         return pessoa;
     }
 

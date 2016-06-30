@@ -1,16 +1,18 @@
-package servlet;
+package controlador.Login;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import dao.DAOPessoa;
 import java.sql.SQLException;
 import model.Pessoa;
 
 public class LoginBean {
-
+    private DAOPessoa daoPessoa = null;
+    private Pessoa pessoaTmp = null;
     private String email, password;
 
+    public LoginBean() {
+        this.daoPessoa = new DAOPessoa();
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -29,13 +31,12 @@ public class LoginBean {
 
     public boolean validate(String email, String senha) throws SQLException, ClassNotFoundException {
         boolean retorno = false;
-        Connection conn = null;
-        PreparedStatement ps;
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_sistema_ficha_saude", "root", "");
-        ps = conn.prepareStatement("select * from pessoa where email = " + "'" + email + "'" + " and pwd = " + "'" + senha + "'");
-        ResultSet rs = ps.executeQuery();
-        retorno = rs.next();
+        
+        pessoaTmp = daoPessoa.buscarPessoa(email, senha);
+        if (pessoaTmp.getEmail().equals(email) || pessoaTmp.getPwd().equals(senha)) {
+            retorno = true;
+        }
+        
         return retorno;
     }
 }
