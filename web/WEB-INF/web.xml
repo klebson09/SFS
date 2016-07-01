@@ -13,30 +13,16 @@
         <location>/erroGeral</location>
     </error-page>
     -->
-    <servlet>
-        <servlet-name>ControllerEndereco</servlet-name>
-        <servlet-class>servlet.ControllerEndereco</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ControllerPessoa</servlet-name>
-        <servlet-class>servlet.ControllerPessoa</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ControllerConsulta</servlet-name>
-        <servlet-class>servlet.ControllerConsulta</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ControladorDeRedirecionamento</servlet-name>
-        <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>ControllerLogin</servlet-name>
         <servlet-class>servlet.ControllerLogin</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ControllerEndereco</servlet-name>
-        <url-pattern>/ControllerEndereco</url-pattern>
+        <servlet-name>ControllerLogin</servlet-name>
+        <url-pattern>/ControllerLogin</url-pattern>
     </servlet-mapping>
+        
     <servlet>
         <servlet-name>ControllerCadastroPaciente</servlet-name>
         <servlet-class>servlet.ControllerCadastroPaciente</servlet-class>
@@ -45,25 +31,50 @@
         <servlet-name>ControllerCadastroPaciente</servlet-name>
         <url-pattern>/ControllerCadastroPaciente</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ControllerCadastroMedico</servlet-name>
+        <servlet-class>servlet.ControllerCadastroMedico</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>ControllerPessoa</servlet-name>
-        <url-pattern>/ControllerPessoa</url-pattern>
+        <servlet-name>ControllerCadastroMedico</servlet-name>
+        <url-pattern>/ControllerCadastroMedico</url-pattern>
     </servlet-mapping>
+       
+    <servlet>
+        <servlet-name>ControllerEndereco</servlet-name>
+        <servlet-class>servlet.ControllerEndereco</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerEndereco</servlet-name>
+        <url-pattern>/ControllerEndereco</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet>
+        <servlet-name>ControllerConsulta</servlet-name>
+        <servlet-class>servlet.ControllerConsulta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerConsulta</servlet-name>
         <url-pattern>/ControllerConsulta</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>ControladorDeRedirecionamento</servlet-name>
+        <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
+    </servlet>    
     <servlet-mapping>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ControllerLogin</servlet-name>
-        <url-pattern>/ControllerLogin</url-pattern>
-    </servlet-mapping>
+
+    
+    
     <session-config>
         <session-timeout>1</session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <!--        <welcome-file>jsps/endereco.jsp</welcome-file>-->
         <welcome-file>jsps/login2.jsp</welcome-file>

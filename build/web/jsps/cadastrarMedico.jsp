@@ -63,14 +63,18 @@
 						<label for="inputDataNasc">Data de Nascimento</label> <br>
 						<input id="inputDataNasc" type="data" name="dataNasc" class="input username" /><br>
 						Sexo
-						<select name=Sexo>
+						<select name=sexo>
 							<option>Masculino</option>
 							<option>Feminino</option>
 						</select><br> <br>
 						Estado Civil
-						<select name=Sexo>
-							<option>Solteiro</option>
-							<option>Casado</option>
+						<select name=estadoCivil>
+							<option>Solteiro(a)</option>
+							<option>Casado(a)</option>
+							<option>Divorciado(a)</option>
+							<option>Viúvo(a)</option>
+							<option>Separado(a)</option>
+							<option>Companheiro(a)</option>
 						</select><br><br>
 						<label for="inputNome" >Naturalidade</label> <br>
 						<input id="inputNome" type="text" name="nome"  class="input username" /> <br>
@@ -79,7 +83,7 @@
 						<label for="inputCPF">CPF</label> <br>
 						<input id="inputCPF" type="text" name="cpf"  class="input username" /> <br>
 						<label for="inputRG">Nº CRM</label> <br>
-						<input id="inputRG" type="text" name="rg" class="input username" /><br>
+						<input id="inputRG" type="text" name="crm" class="input username" /><br>
 						<label for="inputCPF">Telefone</label> <br>
 						<input id="inputCPF" type="text" name="cpf"  class="input username" /> <br>		
 						<label for="inputRG">Celular</label> <br>
@@ -89,7 +93,7 @@
 					</fieldset>
 					</div>
 					<!--OBS. FALTA INSERIR NA TABELA DO BANCO DE DADOS TELEFONE, Celular E Sexo Naturalidade-->
-					<div class="endereco">
+<!--					<div class="endereco">
 					<fieldset>
 					  <legend>Endereço</legend>
 						<label for="inputRua">Rua</label> <BR>
@@ -106,8 +110,8 @@
 						<input id="inputEstado" type="text" name="estado"  class="input username" /> <br>
 						<label for="inputCep">CEP</label> <br>
 						<input id="inputCep" type="text" name="cep" class="input username" /><br>
-                    </fieldset> 
-					</div>
+                                        </fieldset> 
+					</div>-->
 					<fieldset>
 					  <legend>Acesso</legend>
 					<div class="acesso">
