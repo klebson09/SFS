@@ -2,7 +2,11 @@ package servlet;
 
 import dao.*;
 import java.util.ArrayList;
-import model.*;
+import java.util.List;
+import model.Endereco;
+import model.Medico;
+import model.Paciente;
+import model.Pessoa;
 
 /**
  *
@@ -44,7 +48,7 @@ public class ControladorDAO {
             case "Medico":
         }
     }
-
+    
     /**
      * Adicionador de paciente, recebe um paciente e o add com os att certos
      * primeiro os de pessoa depois os de paciente
