@@ -9,11 +9,11 @@ import dao.DAOPessoa;
 import model.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
-//import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Paciente;
 
 public class ControllerPessoa extends HttpServlet {
 
@@ -39,7 +39,7 @@ public class ControllerPessoa extends HttpServlet {
         String pwd = request.getParameter("pwd");
         System .out.println("mostra nome: " +nome+ "  dat nascimento: :" + dataNasc + "  CPF: " + cpf + "  Rg: " + rg + "  EMAIL: " + email + "  SENHA: " + pwd + "  ");
 //        System .out.println("mostra logradouro " +nome+ "complemento:" + dataNasc + "n:" + cpf + "cidade:" + rg + "estado:" + email + "cep:" + pwd + "");
-        Pessoa pessoa = new Pessoa();
+        Pessoa pessoa = new Paciente();
         // pessoa.setIdPessoa(Integer.MIN_VALUE);
         //converter string para data
 //        pessoa.setDataNasc(dataNasc);

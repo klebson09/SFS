@@ -16,22 +16,22 @@ import java.util.logging.Logger;
  * @author klebsonsantana
  */
 public class DAOEndereco {
-
+    
     public void adicionar(Endereco endereco) {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into endereco "
                 + "(logradouro, numero, complemento, cidade, estado, cep)"
                 + " values (?,?,?,?,?,?)";
-
+        
         try {
-
+            
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
 
             con = DriverManager.getConnection(url, "root", "");
             // seta os valores
             PreparedStatement stmt = con.prepareStatement(sql);
-
+            
             stmt.setString(1, endereco.getLogradouro());
             stmt.setInt(2, endereco.getNumero());
             stmt.setString(3, endereco.getComplemento());
@@ -47,11 +47,9 @@ public class DAOEndereco {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
     
-
     public void list() throws SQLException {
         Connection con = null;
         Statement stmt = null;
@@ -67,10 +65,10 @@ public class DAOEndereco {
 
             // o result set contém os resultados da operação
             if (rs.next()) {
-
+                
                 endereco = new Endereco();
 
-//Recuperando os dados do result set.
+                //Recuperando os dados do result set.
                 endereco.setIdEndereco(Integer.MIN_VALUE);
                 endereco.setLogradouro(rs.getString("logradouro"));
                 endereco.setNumero(rs.getInt("numero"));
@@ -97,17 +95,16 @@ public class DAOEndereco {
                     con.close();
                 }
             } catch (SQLException ex) {
-
+                
                 ex.printStackTrace();
-
+                
             }
-
+            
         }
     }
-
     
-     public int pegaUltimaPessoa() {
-
+    public int pegaUltimaPessoa() {
+        
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -123,8 +120,7 @@ public class DAOEndereco {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
-
+                // pessoa = new Pessoa();
 //Recuperando os dados do result set.
 //                endereco.setIdEndereco(Integer.MIN_VALUE);
 //                endereco.setLogradouro(rs.getString("logradouro"));
@@ -133,9 +129,7 @@ public class DAOEndereco {
 //                endereco.setCidade(rs.getString("cidade"));
 //                endereco.setEstado(rs.getString("estado"));
 //                endereco.setCep(rs.getString("cep"));
-                  pessoa.setIdPessoa(rs.getInt("idPessoa"));//     <<<<<<<<<<<<<<------------------- obs o getint pode está errado
-                
-                System.out.println("________________>>>>>>>>>>>>");
+                pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 System.out.println(pessoa.toString());
                 return rs.getInt("idPessoa");
             }
@@ -156,19 +150,72 @@ public class DAOEndereco {
                     con.close();
                 }
             } catch (SQLException ex) {
-
+                
                 ex.printStackTrace();
-
+                
             }
-
+            
         }
-
-        return  0;
+        
+        return 0;
     }
     
-    
-    
-    public Endereco find() {
-        return null;
+    public Endereco buscarEndereco(String logradouro) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Endereco endereco = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idEndereco, logradouro, numero, complemento, cidade, estado, cep "
+                    + "FROM endereco "
+                    + "WHERE logradouro=" + "'" + logradouro + "'");
+            
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+                
+                endereco = new Endereco();
+
+                //Recuperando os dados do result set.
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setLogradouro(rs.getString("logradouro"));
+                endereco.setNumero(rs.getInt("numero"));
+                endereco.setComplemento(rs.getString("complemento"));
+                endereco.setCidade(rs.getString("cidade"));
+                endereco.setEstado("estado");
+                endereco.setCep("cep");
+                
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                
+                ex.printStackTrace();
+                
+            }
+            
+        }
+        
+        return endereco;
     }
 }
+

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Endereco;
+import model.Paciente;
 
 public class DAOPessoa {
 
@@ -17,8 +18,8 @@ public class DAOPessoa {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into pessoa "
-                + "(nome, data_nasc, CPF, RG, email, pwd)"
-                + " values (?,?,?,?,?,?)";
+                + "(nome, data_nasc, CPF, RG, email, pwd, idEndereco)"
+                + " values (?,?,?,?,?,?,?)";
 
         try {
 
@@ -34,12 +35,11 @@ public class DAOPessoa {
                         stmt.setString(4, pessoa.getRg());
                         stmt.setString(5, pessoa.getEmail());
                         stmt.setString(6, pessoa.getPwd());
-
+                        stmt.setInt(7, pessoa.getIdEndereco());
                         stmt.execute();
                         stmt.close();
                     }
         } catch (SQLException e) {
-            System.out.println("----------------->>>>>>>>>>ERROO NO DAOPessoa SQLException       <<<<<----------");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +66,7 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
+                pessoa = new Paciente();
 
 //Recuperando os dados do result set.
                 pessoa.setIdPessoa(rs.getInt("idPessoa"));
@@ -76,7 +76,6 @@ public class DAOPessoa {
                 pessoa.setRg(rs.getString("RG"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setPwd(rs.getString("pwd"));
-                // System.out.println(query);
 
                 DAOEndereco daoEndereco = new DAOEndereco();
                 daoEndereco.adicionar(endereco);
@@ -110,7 +109,7 @@ public class DAOPessoa {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Pessoa pessoa = null;
+        Pessoa usuario = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
         try {
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
@@ -123,17 +122,16 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
-
+                usuario = new Paciente();
 //Recuperando os dados do result set.
-                pessoa.setIdPessoa(rs.getInt("idPessoa"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setPwd(rs.getString("pwd"));
-                System.out.println(pessoa);
+                usuario.setIdPessoa(rs.getInt("idPessoa"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setDataNasc(rs.getString("data_nasc"));
+                usuario.setCpf(rs.getString("CPF"));
+                usuario.setRg(rs.getString("RG"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPwd(rs.getString("pwd"));
+                System.out.println(usuario);
 
             }
         } catch (ClassNotFoundException ex) {
@@ -160,14 +158,14 @@ public class DAOPessoa {
 
         }
 
-        return pessoa;
+        return usuario;
     }
 
     public Pessoa buscarPessoa(String email, String senha) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Pessoa pessoa = null;
+        Pessoa paciente = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
         try {
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
@@ -183,17 +181,17 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
+                paciente = new Paciente();
 
                 //Recuperando os dados do result set.
-                pessoa.setIdPessoa(rs.getInt("idPessoa"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setPwd(rs.getString("pwd"));
-                System.out.println(pessoa);
+                paciente.setIdPessoa(rs.getInt("idPessoa"));
+                paciente.setNome(rs.getString("nome"));
+                paciente.setDataNasc(rs.getString("data_nasc"));
+                paciente.setCpf(rs.getString("CPF"));
+                paciente.setRg(rs.getString("RG"));
+                paciente.setEmail(rs.getString("email"));
+                paciente.setPwd(rs.getString("pwd"));
+                System.out.println(paciente);
 
             }
         } catch (ClassNotFoundException ex) {
@@ -220,7 +218,7 @@ public class DAOPessoa {
 
         }
 
-        return pessoa;
+        return paciente;
     }
 
 }

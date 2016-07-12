@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 public class Endereco implements Serializable {
 
@@ -12,7 +11,6 @@ public class Endereco implements Serializable {
     private String cidade;
     private String estado;
     private String cep;
-    private Collection<Pessoa> pessoaDAOCollection;
 
     public Endereco() {
     }
@@ -21,7 +19,8 @@ public class Endereco implements Serializable {
         this.idEndereco = idEndereco;
     }
 
-    public Endereco(Integer idEndereco, String logradouro, int numero, String complemento, String cidade, String estado, String cep, String idPessoa) {
+    public Endereco(Integer idEndereco, String logradouro, int numero, 
+            String complemento, String cidade, String estado, String cep) {
         this.idEndereco = idEndereco;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -29,7 +28,6 @@ public class Endereco implements Serializable {
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
-        this.idPessoa = idPessoa;
     }
 
     public Integer getIdEndereco() {
@@ -88,24 +86,6 @@ public class Endereco implements Serializable {
         this.cep = cep;
     }
 
-    private String idPessoa;
-
-    public String getIdPessoa() {
-        return idPessoa;
-    }
-
-    public void setIdPessoa(String idPessoa) {
-        this.idPessoa = idPessoa;
-    }
-
-    public Collection<Pessoa> getPessoaDAOCollection() {
-        return pessoaDAOCollection;
-    }
-
-    public void setPessoaDAOCollection(Collection<Pessoa> pessoaDAOCollection) {
-        this.pessoaDAOCollection = pessoaDAOCollection;
-    }
-
     public int hashCode() {
         int hash = 0;
         hash += (idEndereco != null ? idEndereco.hashCode() : 0);
@@ -118,7 +98,9 @@ public class Endereco implements Serializable {
             return false;
         }
         Endereco other = (Endereco) object;
-        if ((this.idEndereco == null && other.idEndereco != null) || (this.idEndereco != null && !this.idEndereco.equals(other.idEndereco))) {
+        if ((this.idEndereco == null && other.idEndereco != null) || 
+                (this.idEndereco != null && 
+                !this.idEndereco.equals(other.idEndereco))) {
             return false;
         }
         return true;
@@ -127,9 +109,4 @@ public class Endereco implements Serializable {
     public String toString() {
         return "com.dao.EnderecoDAO[ idEndereco=" + idEndereco + " ]";
     }
-
-    public void setIdPessoa(int idPessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

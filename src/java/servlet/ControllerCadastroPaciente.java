@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Paciente;
-import servlet.facade.FacadePaciente;
 
 /**
  *OBS NÃO ESTÁ CADASTRANDO EM 2 TABELAS (ENDERECO E PESSOA)
@@ -20,7 +19,8 @@ import servlet.facade.FacadePaciente;
  */
 public class ControllerCadastroPaciente extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, 
+            HttpServletResponse response) 
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
@@ -35,24 +35,22 @@ public class ControllerCadastroPaciente extends HttpServlet {
         String pwd = request.getParameter("pwd");
         
         Paciente paciente = new Paciente();
+        paciente.setNome(nome);
+        paciente.setDataNasc(dataNasc);
+        paciente.setCpf(cpf);
+        paciente.setRg(rg);
+        paciente.setEmail(email);
+        paciente.setPwd(pwd);
         paciente.setNumSUS(numSUS);
-        
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome);
-        pessoa.setDataNasc(dataNasc);
-        pessoa.setCpf(cpf);
-        pessoa.setRg(rg);
-        pessoa.setEmail(email);
-        pessoa.setPwd(pwd);
 
         ArrayList<Object> listaObjetos = new ArrayList<>();
-        listaObjetos.add(pessoa);
         listaObjetos.add(paciente);        
         
         ControladorDAO controladorDao = new ControladorDAO();
         
-        controladorDao.construtorDeObjetos(pessoa,paciente, "Paciente");
-        RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
+        controladorDao.construtorDeObjetos(listaObjetos, "Paciente");
+        RequestDispatcher rd = request.
+                getRequestDispatcher("jsps/cadastroSucesso.jsp");
         rd.forward(request, response);
     }
 }
