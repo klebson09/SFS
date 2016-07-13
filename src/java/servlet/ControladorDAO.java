@@ -11,7 +11,6 @@ import servlet.facade.FacadeMedico;
 import servlet.facade.FacadePaciente;
 
 /**
- *
  * @author klebson
  */
 public class ControladorDAO {
@@ -22,7 +21,7 @@ public class ControladorDAO {
 
     }
 
-    protected void construtorDeObjetos(Pessoa pessoa, Paciente paciente, Medico medico, String classe) {
+    protected void construtorDeObjetos(Pessoa pessoa, Paciente paciente, String classe) {
 //        Endereco endereco;ArrayList<Object> objetos
 
 //        for (int i = 0; i < objetos.size(); i++) {
@@ -49,10 +48,6 @@ public class ControladorDAO {
                 facadeMedico.AdicionarMedico(pessoa, medico);
         }
 
-    }
-
-    void construtorDeObjetos(Pessoa pessoa, Medico medico, String medico0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

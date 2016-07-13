@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <!--    <erro-page>
-        <erro-code>404</erro-code>
-        <location>/erroGeral.jsp</location>
-    </erro-page>-->
-    <!--    <erro-page>
-        <error-code>404</error-code>
-        <location>/erroGeral</location>
-    </erro-page>
-    <error-page>
-        <exception-type>javax.servlet.ServletException</exception-type>
-        <location>/erroGeral</location>
-    </error-page>
-    -->
-    
+ 
     <servlet>
         <servlet-name>ControllerLogin</servlet-name>
         <servlet-class>servlet.ControllerLogin</servlet-class>
@@ -69,7 +56,18 @@
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
 
-    
+    <erro-page>
+        <erro-code>404</erro-code>
+        <location>/erro404.jsp</location>
+    </erro-page>
+<!--    <erro-page>
+        <error-code>404</error-code>
+        <location>/erroGeral</location>
+    </erro-page>-->
+    <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+        <location>/erroGeral.jsp</location>
+    </error-page>    
     
     <session-config>
         <session-timeout>1</session-timeout>
