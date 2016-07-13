@@ -13,13 +13,21 @@ public class Paciente extends Pessoa implements Serializable {
     private String numSUS;
     private Integer PessoaIdPessoa;
 
+    public Paciente() {
+    }
+
     public Paciente(Integer idPaciente, String numSUS, Integer PessoaIdPessoa) {
         this.idPaciente = idPaciente;
         this.numSUS = numSUS;
         this.PessoaIdPessoa = PessoaIdPessoa;
     }
-
-    public Paciente() {
+    
+    public Paciente(String numSUS, String nome, String dataNasc, String sexo, 
+            String cpf, String rg, String naturalidade, String email, 
+            String telefone, String celular, String pwd) {
+        super(nome, dataNasc, sexo, cpf, rg, naturalidade, email, 
+                telefone, celular, pwd);
+        this.numSUS = numSUS;
     }
 
     public Integer getIdPaciente() {

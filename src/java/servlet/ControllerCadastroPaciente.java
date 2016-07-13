@@ -11,14 +11,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Endereco;
 import model.Paciente;
 
 /**
- *OBS NÃO ESTÁ CADASTRANDO EM 2 TABELAS (ENDERECO E PESSOA)
+ *
  * @author klebsonsantana
  */
 public class ControllerCadastroPaciente extends HttpServlet {
-
+    
+    @Override
     protected void doPost(HttpServletRequest request, 
             HttpServletResponse response) 
             throws ServletException, IOException {
@@ -27,24 +29,36 @@ public class ControllerCadastroPaciente extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String nome = request.getParameter("nome");
-        String dataNasc = request.getParameter("dataNasc");//pegando dados de um formulário WEB 
-        String rg = request.getParameter("rg");
-        String cpf = request.getParameter("cpf");
+        String dataNasc = request.getParameter("dataNasc");
+        String sexo = request.getParameter("sexo");
+        String CPF = request.getParameter("cpf");
+        String RG = request.getParameter("rg");
+        String naturalidade = request.getParameter("naturalidade");
+        String estadoCivil = request.getParameter("estadoCivil");
         String email = request.getParameter("email");
-        String numSUS = request.getParameter("numSUS");
+        String telefone = request.getParameter("telefone");
+        String celular = request.getParameter("celular");
         String pwd = request.getParameter("pwd");
+        String numSUS = request.getParameter("numSUS");
         
-        Paciente paciente = new Paciente();
-        paciente.setNome(nome);
-        paciente.setDataNasc(dataNasc);
-        paciente.setCpf(cpf);
-        paciente.setRg(rg);
-        paciente.setEmail(email);
-        paciente.setPwd(pwd);
-        paciente.setNumSUS(numSUS);
-
+        Paciente paciente = new Paciente(numSUS, nome, dataNasc, sexo, CPF, RG,
+                naturalidade, email, telefone, celular, pwd);
+        
+        String CEP = request.getParameter("CEP");
+        String logradouro = request.getParameter("logradouro");
+        String numero = request.getParameter("numero");
+        String complemento = request.getParameter("complemento");
+        String bairro = request.getParameter("bairro");
+        String estado = request.getParameter("estado");
+        
+        Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero), 
+                complemento, bairro, estado, estado, CEP);
+        
+        System.out.println(estado + sexo);
+        
         ArrayList<Object> listaObjetos = new ArrayList<>();
         listaObjetos.add(paciente);        
+        listaObjetos.add(endereco);
         
         ControladorDAO controladorDao = new ControladorDAO();
         

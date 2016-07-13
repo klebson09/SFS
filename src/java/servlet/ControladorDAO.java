@@ -16,16 +16,19 @@ public class ControladorDAO {
 
     private final DAOPessoa daopessoa;
     private final DAOPaciente daopaciente;
+    private final DAOMedico daomedico;
     private final DAOEndereco daoendereco;
     private Integer idPessoa = null;
     private Integer idEndereco = null;
     private Paciente pacienteTmp = null;
     private Endereco enderecoTmp = null;
+    private Medico medicoTmp = null;
 
     public ControladorDAO() {
         this.daopessoa = new DAOPessoa();
         this.daopaciente = new DAOPaciente();
         this.daoendereco = new DAOEndereco();
+        this.daomedico = new DAOMedico();
     }
 
     protected void construtorDeObjetos(ArrayList<Object> objetos,
@@ -34,8 +37,8 @@ public class ControladorDAO {
         for (int i = 0; i < objetos.size(); i++) {
             if (objetos.get(i).getClass() == Paciente.class) {
                 pacienteTmp = (Paciente) objetos.get(i);
-//            } else if (objetos.get(i).getClass() == Medico.class) {
-//                Medico medico = (Medico) objetos.get(i);
+            } else if (objetos.get(i).getClass() == Medico.class) {
+                medicoTmp = (Medico) objetos.get(i);
             } else if (objetos.get(i).getClass() == Endereco.class) {
                 enderecoTmp = (Endereco) objetos.get(i);
             }
@@ -46,11 +49,13 @@ public class ControladorDAO {
                 break;
             
             case "Medico":
+                AdicionarMedico(medicoTmp, enderecoTmp);
+                break;
         }
     }
     
     /**
-     * Adicionador de paciente, recebe um paciente e o add com os att certos
+     * Adicionador de paciente, recebe um paciente e um endereco e o add com os att certos
      * primeiro os de pessoa depois os de paciente
      *
      * @param paciente
@@ -63,24 +68,30 @@ public class ControladorDAO {
 
         paciente.setIdEndereco(idEndereco);
         daopessoa.adicionar(paciente);
-        idPessoa = daopessoa.buscarPessoaPorCPF(paciente.getCpf()).
+        idPessoa = daopessoa.buscarPessoaPorCPF(paciente.getCPF()).
                 getIdPessoa();
 
         paciente.setPessoaIdPessoa(idPessoa);
         daopaciente.adicionar(paciente);
     }
     
-//    protected void AdicionarMedico(Medico medico, Endereco endereco) {
-//        daoendereco.adicionar(endereco);
-//        idEndereco = daoendereco.buscarEndereco(endereco.getLogradouro()).
-//                getIdEndereco();
-//
-//        medico.setIdEndereco(idEndereco);
-//        daopessoa.adicionar(medico);
-//        idPessoa = daopessoa.buscarPessoaPorCPF(medico.getCpf()).
-//                getIdPessoa();
-//
-//        medico.setPessoaIdPessoa(idPessoa);
-//        daopaciente.adicionar(medico);
-//    }
+    /**
+     * Adicionador de medico, recebe um medico e um endereco e o add com os att certos
+     * primeiro os de pessoa depois os de medico
+     * @param medico
+     * @param endereco 
+     */
+    protected void AdicionarMedico(Medico medico, Endereco endereco) {
+        daoendereco.adicionar(endereco);
+        idEndereco = daoendereco.buscarEndereco(endereco.getLogradouro()).
+                getIdEndereco();
+
+        medico.setIdEndereco(idEndereco);
+        daopessoa.adicionar(medico);
+        idPessoa = daopessoa.buscarPessoaPorCPF(medico.getCPF()).
+                getIdPessoa();
+
+        medico.setPessoaIdPessoa(idPessoa);
+        daomedico.adicionar(medico);
+    }
 }

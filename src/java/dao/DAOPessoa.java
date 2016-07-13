@@ -31,8 +31,8 @@ public class DAOPessoa {
                     PreparedStatement stmt = con.prepareStatement(sql)) {
                         stmt.setString(1, pessoa.getNome());
                         stmt.setString(2, pessoa.getDataNasc());
-                        stmt.setString(3, pessoa.getCpf());
-                        stmt.setString(4, pessoa.getRg());
+                        stmt.setString(3, pessoa.getCPF());
+                        stmt.setString(4, pessoa.getRG());
                         stmt.setString(5, pessoa.getEmail());
                         stmt.setString(6, pessoa.getPwd());
                         stmt.setInt(7, pessoa.getIdEndereco());
@@ -72,8 +72,8 @@ public class DAOPessoa {
                 pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 pessoa.setNome(rs.getString("nome"));
                 pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
+                pessoa.setCPF(rs.getString("CPF"));
+                pessoa.setRG(rs.getString("RG"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setPwd(rs.getString("pwd"));
 
@@ -123,12 +123,12 @@ public class DAOPessoa {
             if (rs.next()) {
 
                 usuario = new Paciente();
-//Recuperando os dados do result set.
+                //Recuperando os dados do result set.
                 usuario.setIdPessoa(rs.getInt("idPessoa"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setDataNasc(rs.getString("data_nasc"));
-                usuario.setCpf(rs.getString("CPF"));
-                usuario.setRg(rs.getString("RG"));
+                usuario.setCPF(rs.getString("CPF"));
+                usuario.setRG(rs.getString("RG"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setPwd(rs.getString("pwd"));
                 System.out.println(usuario);
@@ -187,8 +187,8 @@ public class DAOPessoa {
                 paciente.setIdPessoa(rs.getInt("idPessoa"));
                 paciente.setNome(rs.getString("nome"));
                 paciente.setDataNasc(rs.getString("data_nasc"));
-                paciente.setCpf(rs.getString("CPF"));
-                paciente.setRg(rs.getString("RG"));
+                paciente.setCPF(rs.getString("CPF"));
+                paciente.setRG(rs.getString("RG"));
                 paciente.setEmail(rs.getString("email"));
                 paciente.setPwd(rs.getString("pwd"));
                 System.out.println(paciente);

@@ -21,8 +21,8 @@ public class DAOEndereco {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into endereco "
-                + "(logradouro, numero, complemento, cidade, estado, cep)"
-                + " values (?,?,?,?,?,?)";
+                + "(logradouro, numero, complemento, bairro, cidade, estado, cep)"
+                + " values (?,?,?,?,?,?,?)";
         
         try {
             
@@ -35,9 +35,10 @@ public class DAOEndereco {
             stmt.setString(1, endereco.getLogradouro());
             stmt.setInt(2, endereco.getNumero());
             stmt.setString(3, endereco.getComplemento());
-            stmt.setString(4, endereco.getCidade());
-            stmt.setString(5, endereco.getEstado());
-            stmt.setString(6, endereco.getCep());
+            stmt.setString(4, endereco.getBairro());
+            stmt.setString(5, endereco.getCidade());
+            stmt.setString(6, endereco.getEstado());
+            stmt.setString(7, endereco.getCep());
 
             // executa
             stmt.execute();

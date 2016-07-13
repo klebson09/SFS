@@ -25,7 +25,7 @@ public class FacadeMedico {
     
     public void AdicionarMedico(Pessoa pessoa, Medico medico){
         daopessoa.adicionar(pessoa);
-        idPessoa = daopessoa.buscarPessoaPorCPF(pessoa.getCpf()).getIdPessoa();
+        idPessoa = daopessoa.buscarPessoaPorCPF(pessoa.getCPF()).getIdPessoa();
         medico.setPessoaIdPessoa(idPessoa);
         daomedico.adicionar(medico);
         

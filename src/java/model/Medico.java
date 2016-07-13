@@ -18,8 +18,10 @@ public class Medico extends Pessoa implements Serializable{
         this.PessoaIdPessoa = PessoaIdPessoa;
     }
 //COM ESSE CONSTRUTOR PODEMOS ACESSAR OS ATRIBUTOS DA CLASSE PAI?
-//    public Medico(Integer idMedico, String numCRM, Integer PessoaIdPessoa, Integer idPessoa, String nome, String dataNasc, String cpf, String rg, String email, String pwd, String logradouro, String complemento, int numero, String cidade, String estado, String cep) {
-//        super(idPessoa, nome, dataNasc, cpf, rg, email, pwd, logradouro, complemento, numero, cidade, estado, cep);
+//    public Medico(Integer idMedico, String numCRM, Integer PessoaIdPessoa, 
+//            Integer idPessoa, String nome, String dataNasc, String cpf, 
+//            String rg, String email, String pwd, Integer idEndereco) {
+//        super(idPessoa, nome, dataNasc, cpf, rg, email, pwd, idEndereco);
 //        this.idMedico = idMedico;
 //        this.numCRM = numCRM;
 //        this.PessoaIdPessoa = PessoaIdPessoa;
@@ -28,9 +30,6 @@ public class Medico extends Pessoa implements Serializable{
     public Medico() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-    
     
     public Integer getIdMedico() {
         return idMedico;

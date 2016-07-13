@@ -11,12 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
-//import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Paciente;
 import model.Medico;
 
 public class ControllerCadastroMedico extends HttpServlet {
@@ -39,7 +37,6 @@ public class ControllerCadastroMedico extends HttpServlet {
         String numCRM = request.getParameter("numCRM");
         String pwd = request.getParameter("pwd");
 //        System .out.println("mostra logradouro " +nome+ "complemento:" + dataNasc + "n:" + cpf + "cidade:" + rg + "estado:" + email + "cep:" + pwd + "");
-        Pessoa pessoa = new Paciente();
         // pessoa.setIdPessoa(Integer.MIN_VALUE);
         //converter string para data
 //        pessoa.setDataNasc(dataNasc);
@@ -49,13 +46,12 @@ public class ControllerCadastroMedico extends HttpServlet {
 
         medico.setNome(nome);
         medico.setDataNasc(dataNasc);
-        medico.setCpf(cpf);
-        medico.setRg(rg);
+        medico.setCPF(cpf);
+        medico.setRG(rg);
         medico.setEmail(email);
         medico.setPwd(pwd);
 
         ArrayList<Object> listaObjetos = new ArrayList<>();
-        listaObjetos.add(medico);
         listaObjetos.add(medico);
 
         ControladorDAO controladorDao = new ControladorDAO();
