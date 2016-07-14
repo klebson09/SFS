@@ -42,8 +42,8 @@
             <!--END WRAPPER-->
 
             <!--GRADIENT--><div class="gradient">
-                <img src="jsps/images/morte_1.png" WIDTH="600" HEIGHT="500"></img>   
-                <h1>Servlet Exception</h1>
+                <img src="jsps/images/404.png" WIDTH="600" HEIGHT="500"></img>   
+                <h1>Página não encontrada!!!</h1>
             </div><!--END GRADIENT-->
 
     </body>

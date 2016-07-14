@@ -68,6 +68,7 @@
                 <input type="submit" name="opcao" class="button" value="ListarConsulta">
                 <input type="submit" name="opcao" class="button" value="ListarExame">
                 <input type="submit" name="opcao" class="button" value="CadastrarPaciente">
+                <input type="submit" name="opcao" class="button" value="CadastrarMedico">
                 <input type="submit" name="opcao" class="button" value="Sair">
             </form>
         </div>

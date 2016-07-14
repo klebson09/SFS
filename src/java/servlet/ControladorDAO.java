@@ -4,12 +4,13 @@ import dao.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Endereco;
+import model.Medico;
 import model.Paciente;
 import model.Pessoa;
+import servlet.facade.FacadeMedico;
 import servlet.facade.FacadePaciente;
 
 /**
- *
  * @author klebson
  */
 public class ControladorDAO {
@@ -29,14 +30,12 @@ public class ControladorDAO {
 //                pessoa = (Pessoa) objetos.get(i);
 //            } else if (objetos.get(i).getClass() == Paciente.class) {
 //                paciente = (Paciente) objetos.get(i);
-
 //            }else if(objetos.get(i).getClass()== Medico.class){
 //                Medico medico = new Medico();
 //                medico = (Medico) objetos.get(i);
 //                
 //            } else if (objetos.get(i).getClass() == Endereco.class) {
 //                endereco = (Endereco) objetos.get(i);
-
 //            }
 //
 //        }
@@ -44,6 +43,9 @@ public class ControladorDAO {
             case "Paciente":
                 FacadePaciente facadePaciente = new FacadePaciente();
                 facadePaciente.AdicionarPaciente(pessoa, paciente);
+            case "Medico":
+                FacadeMedico facadeMedico = new FacadeMedico();
+                facadeMedico.AdicionarMedico(pessoa, medico);
         }
 
     }
