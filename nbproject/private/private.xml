@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/src/java/servlet/ControladorDAO.java</file>
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/web/jsps/login2.jsp</file>
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/web/jsps/testeCadastrarPaciente.jsp</file>
@@ -18,6 +19,15 @@
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/web/erro404.jsp</file>
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/src/java/dao/DAOMedico.java</file>
             <file>file:/C:/Users/klebson/Documents/web2_2016.1/SFS/web/WEB-INF/web.xml</file>
+=======
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOConsulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOMedico.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/servlet/ControladorDAO.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/web/jsps/cadastrarConsulta.jsp</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/servlet/ControllerConsulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Consulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOPessoa.java</file>
+>>>>>>> 12e3d2c289f3036c05bfbb998eb0770f62eb6262
         </group>
     </open-files>
 </project-private>

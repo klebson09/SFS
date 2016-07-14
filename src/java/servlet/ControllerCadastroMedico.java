@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
-import dao.DAOPessoa;
-import model.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
-//import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Endereco;
 import model.Medico;
 
 public class ControllerCadastroMedico extends HttpServlet {
@@ -27,38 +20,38 @@ public class ControllerCadastroMedico extends HttpServlet {
         //obs. tipo data, tbm converter
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
         String nome = request.getParameter("nome");
-        String dataNasc = request.getParameter("dataNasc");//pegando dados de um formulário WEB 
-        String rg = request.getParameter("rg");
-        String cpf = request.getParameter("cpf");
-//        String telefone = request.getParameter("telefone");
-//        String celular = request.getParameter("celular");
+        String dataNasc = request.getParameter("dataNasc");
+        String sexo = request.getParameter("sexo");
+        String CPF = request.getParameter("cpf");
+        String RG = request.getParameter("rg");
+        String naturalidade = request.getParameter("naturalidade");
+        String estadoCivil = request.getParameter("estadoCivil");
         String email = request.getParameter("email");
+        String telefone = request.getParameter("telefone");
+        String celular = request.getParameter("celular");
+        String pwd = request.getParameter("senha");
         String numCRM = request.getParameter("numCRM");
-        String pwd = request.getParameter("pwd");
-//        System .out.println("mostra logradouro " +nome+ "complemento:" + dataNasc + "n:" + cpf + "cidade:" + rg + "estado:" + email + "cep:" + pwd + "");
 
-        Medico medico = new Medico();
-        medico.setNumCRM(numCRM);
+        Medico medico = new Medico(numCRM, nome, dataNasc, sexo, CPF, RG,
+                naturalidade, estadoCivil, email, telefone, celular, pwd);
+        String CEP = request.getParameter("CEP");
+        String logradouro = request.getParameter("logradouro");
+        String numero = request.getParameter("numero");
+        String complemento = request.getParameter("complemento");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(nome);
-        pessoa.setDataNasc(dataNasc);
-        pessoa.setCpf(cpf);
-        pessoa.setRg(rg);
-        pessoa.setEmail(email);
-        pessoa.setPwd(pwd);
+        Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero),
+                complemento, bairro, cidade, estado, CEP);
 
         ArrayList<Object> listaObjetos = new ArrayList<>();
-        listaObjetos.add(pessoa);
         listaObjetos.add(medico);
-
+        listaObjetos.add(endereco);
         ControladorDAO controladorDao = new ControladorDAO();
-
-        controladorDao.construtorDeObjetos(pessoa, medico, "Medico");
+        controladorDao.addObjeto(listaObjetos, "Medico");
         RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
         rd.forward(request, response);
-
     }
 }

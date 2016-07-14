@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Endereco;
+import model.Paciente;
 
 public class DAOPessoa {
 
@@ -17,8 +18,8 @@ public class DAOPessoa {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into pessoa "
-                + "(nome, data_nasc, CPF, RG, email, pwd)"
-                + " values (?,?,?,?,?,?)";
+                + "(nome, data_nasc, sexo, CPF, RG, naturalidade, estadoCivil, telefone, celular, email, pwd, idEndereco)"
+                + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
 
@@ -30,16 +31,20 @@ public class DAOPessoa {
                     PreparedStatement stmt = con.prepareStatement(sql)) {
                         stmt.setString(1, pessoa.getNome());
                         stmt.setString(2, pessoa.getDataNasc());
-                        stmt.setString(3, pessoa.getCpf());
-                        stmt.setString(4, pessoa.getRg());
-                        stmt.setString(5, pessoa.getEmail());
-                        stmt.setString(6, pessoa.getPwd());
-
+                        stmt.setString(3, pessoa.getSexo());
+                        stmt.setString(4, pessoa.getCPF());
+                        stmt.setString(5, pessoa.getRG());
+                        stmt.setString(6, pessoa.getNaturalidade());
+                        stmt.setString(7, pessoa.getEstadoCivil());
+                        stmt.setString(8, pessoa.getTelefone());
+                        stmt.setString(9, pessoa.getCelular());
+                        stmt.setString(10, pessoa.getEmail());
+                        stmt.setString(11, pessoa.getPwd());
+                        stmt.setInt(12, pessoa.getIdEndereco());
                         stmt.execute();
                         stmt.close();
                     }
         } catch (SQLException e) {
-            System.out.println("----------------->>>>>>>>>>ERROO NO DAOPessoa SQLException       <<<<<----------");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,17 +71,16 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
+                pessoa = new Paciente();
 
 //Recuperando os dados do result set.
                 pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 pessoa.setNome(rs.getString("nome"));
                 pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
+                pessoa.setCPF(rs.getString("CPF"));
+                pessoa.setRG(rs.getString("RG"));
                 pessoa.setEmail(rs.getString("email"));
                 pessoa.setPwd(rs.getString("pwd"));
-                // System.out.println(query);
 
                 DAOEndereco daoEndereco = new DAOEndereco();
                 daoEndereco.adicionar(endereco);
@@ -110,7 +114,7 @@ public class DAOPessoa {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Pessoa pessoa = null;
+        Pessoa usuario = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
         try {
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
@@ -123,17 +127,16 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
-
-//Recuperando os dados do result set.
-                pessoa.setIdPessoa(rs.getInt("idPessoa"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setPwd(rs.getString("pwd"));
-                System.out.println(pessoa);
+                usuario = new Paciente();
+                //Recuperando os dados do result set.
+                usuario.setIdPessoa(rs.getInt("idPessoa"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setDataNasc(rs.getString("data_nasc"));
+                usuario.setCPF(rs.getString("CPF"));
+                usuario.setRG(rs.getString("RG"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPwd(rs.getString("pwd"));
+                System.out.println(usuario);
 
             }
         } catch (ClassNotFoundException ex) {
@@ -160,14 +163,14 @@ public class DAOPessoa {
 
         }
 
-        return pessoa;
+        return usuario;
     }
 
     public Pessoa buscarPessoa(String email, String senha) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Pessoa pessoa = null;
+        Pessoa paciente = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
         try {
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
@@ -183,17 +186,17 @@ public class DAOPessoa {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
+                paciente = new Paciente();
 
                 //Recuperando os dados do result set.
-                pessoa.setIdPessoa(rs.getInt("idPessoa"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setDataNasc(rs.getString("data_nasc"));
-                pessoa.setCpf(rs.getString("CPF"));
-                pessoa.setRg(rs.getString("RG"));
-                pessoa.setEmail(rs.getString("email"));
-                pessoa.setPwd(rs.getString("pwd"));
-                System.out.println(pessoa);
+                paciente.setIdPessoa(rs.getInt("idPessoa"));
+                paciente.setNome(rs.getString("nome"));
+                paciente.setDataNasc(rs.getString("data_nasc"));
+                paciente.setCPF(rs.getString("CPF"));
+                paciente.setRG(rs.getString("RG"));
+                paciente.setEmail(rs.getString("email"));
+                paciente.setPwd(rs.getString("pwd"));
+                System.out.println(paciente);
 
             }
         } catch (ClassNotFoundException ex) {
@@ -220,7 +223,65 @@ public class DAOPessoa {
 
         }
 
-        return pessoa;
+        return paciente;
     }
+    
+    public Pessoa buscarPessoaPorNome(String nome) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Pessoa medico = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idPessoa, nome, data_nasc, CPF, RG, email, pwd "
+                    + "FROM pessoa "
+                    + "WHERE nome=" + "'" + nome + "'");
 
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+
+                medico = new Paciente();
+
+                //Recuperando os dados do result set.
+                medico.setIdPessoa(rs.getInt("idPessoa"));
+                medico.setNome(rs.getString("nome"));
+                medico.setDataNasc(rs.getString("data_nasc"));
+                medico.setCPF(rs.getString("CPF"));
+                medico.setRG(rs.getString("RG"));
+                medico.setEmail(rs.getString("email"));
+                medico.setPwd(rs.getString("pwd"));
+                System.out.println(medico);
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return medico;
+    }
 }

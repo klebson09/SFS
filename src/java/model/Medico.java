@@ -2,36 +2,35 @@ package model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author klebson
  */
-public class Medico extends Pessoa implements Serializable{
+public class Medico extends Pessoa implements Serializable {
+
     private Integer idMedico;
     private String numCRM;
     private Integer PessoaIdPessoa;
-    
+
+    public Medico() {
+    }
     public Medico(Integer idMedico, String numCRM, Integer PessoaIdPessoa) {
         this.idMedico = idMedico;
         this.numCRM = numCRM;
         this.PessoaIdPessoa = PessoaIdPessoa;
     }
-//COM ESSE CONSTRUTOR PODEMOS ACESSAR OS ATRIBUTOS DA CLASSE PAI?
-//    public Medico(Integer idMedico, String numCRM, Integer PessoaIdPessoa, Integer idPessoa, String nome, String dataNasc, String cpf, String rg, String email, String pwd, String logradouro, String complemento, int numero, String cidade, String estado, String cep) {
-//        super(idPessoa, nome, dataNasc, cpf, rg, email, pwd, logradouro, complemento, numero, cidade, estado, cep);
-//        this.idMedico = idMedico;
-//        this.numCRM = numCRM;
-//        this.PessoaIdPessoa = PessoaIdPessoa;
-//    }
 
-    public Medico() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Medico(String numCRM, String nome, String dataNasc, String sexo,
+            String cpf, String rg, String naturalidade, String estadoCivil, String email,
+            String telefone, String celular, String pwd) {
+        super(nome, dataNasc, sexo, cpf, rg, naturalidade, estadoCivil, email,
+                telefone, celular, pwd);
+        this.numCRM = numCRM;
     }
-
-
-    
-    
     public Integer getIdMedico() {
         return idMedico;
     }
@@ -90,8 +89,4 @@ public class Medico extends Pessoa implements Serializable{
     public String toString() {
         return "Medico{" + "idMedico=" + idMedico + ", numCRM=" + numCRM + ", PessoaIdPessoa=" + PessoaIdPessoa + '}';
     }
-
-
-    
-    
 }

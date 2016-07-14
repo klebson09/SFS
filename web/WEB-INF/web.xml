@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
- 
+
     <servlet>
         <servlet-name>ControllerLogin</servlet-name>
         <servlet-class>controlador.Login.ControllerLogin</servlet-class>
@@ -27,6 +27,15 @@
         <servlet-name>ControllerCadastroMedico</servlet-name>
         <url-pattern>/ControllerCadastroMedico</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ControllerCadastroExame</servlet-name>
+        <servlet-class>servlet.ControllerCadastroExame</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerCadastroExame</servlet-name>
+        <url-pattern>/ControllerCadastroExame</url-pattern>
+    </servlet-mapping>
        
     <servlet>
         <servlet-name>ControllerEndereco</servlet-name>
@@ -46,7 +55,6 @@
         <url-pattern>/ControllerConsulta</url-pattern>
     </servlet-mapping>
     
-    
     <servlet>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
@@ -56,10 +64,6 @@
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
 
-<!--    <erro-page>
-        <error-code>404</error-code>
-        <location>/erroGeral</location>
-    </erro-page>-->
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/erroGeral.jsp</location>

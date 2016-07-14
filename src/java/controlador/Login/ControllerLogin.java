@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ControllerLogin extends HttpServlet {
-
+    
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
@@ -27,7 +28,7 @@ public class ControllerLogin extends HttpServlet {
         LoginBean bean = new LoginBean();
         bean.setEmail(email);
         bean.setPassword(password);
-        request.setAttribute("bean", bean);
+        session.setAttribute("bean", bean);
 
         boolean status = true;
         
