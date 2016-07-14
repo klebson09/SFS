@@ -16,41 +16,44 @@ import java.util.logging.Logger;
  * @author klebsonsantana
  */
 public class DAOEndereco {
-    
+
     public void adicionar(Endereco endereco) {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into endereco "
                 + "(logradouro, numero, complemento, bairro, cidade, estado, cep)"
                 + " values (?,?,?,?,?,?,?)";
-        
+
         try {
-            
-            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            if (buscarEndereco(endereco.getLogradouro()) == null) {
+                Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
 
-            con = DriverManager.getConnection(url, "root", "");
-            // seta os valores
-            PreparedStatement stmt = con.prepareStatement(sql);
-            
-            stmt.setString(1, endereco.getLogradouro());
-            stmt.setInt(2, endereco.getNumero());
-            stmt.setString(3, endereco.getComplemento());
-            stmt.setString(4, endereco.getBairro());
-            stmt.setString(5, endereco.getCidade());
-            stmt.setString(6, endereco.getEstado());
-            stmt.setString(7, endereco.getCep());
+                con = DriverManager.getConnection(url, "root", "");
+                // seta os valores
+                PreparedStatement stmt = con.prepareStatement(sql);
 
-            // executa
-            stmt.execute();
-            stmt.close();
+                stmt.setString(1, endereco.getLogradouro());
+                stmt.setInt(2, endereco.getNumero());
+                stmt.setString(3, endereco.getComplemento());
+                stmt.setString(4, endereco.getBairro());
+                stmt.setString(5, endereco.getCidade());
+                stmt.setString(6, endereco.getEstado());
+                stmt.setString(7, endereco.getCep());
+
+                // executa
+                stmt.execute();
+                stmt.close();
+            }else{
+                System.out.println("Ja esxiste um endereco");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void list() throws SQLException {
         Connection con = null;
         Statement stmt = null;
@@ -66,7 +69,7 @@ public class DAOEndereco {
 
             // o result set contém os resultados da operação
             if (rs.next()) {
-                
+
                 endereco = new Endereco();
 
                 //Recuperando os dados do result set.
@@ -96,16 +99,16 @@ public class DAOEndereco {
                     con.close();
                 }
             } catch (SQLException ex) {
-                
+
                 ex.printStackTrace();
-                
+
             }
-            
+
         }
     }
-    
+
     public int pegaUltimaPessoa() {
-        
+
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -151,16 +154,16 @@ public class DAOEndereco {
                     con.close();
                 }
             } catch (SQLException ex) {
-                
+
                 ex.printStackTrace();
-                
+
             }
-            
+
         }
-        
+
         return 0;
     }
-    
+
     public Endereco buscarEndereco(String logradouro) {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -174,12 +177,12 @@ public class DAOEndereco {
             stmt = con.prepareStatement("SELECT idEndereco, logradouro, numero, complemento, cidade, estado, cep "
                     + "FROM endereco "
                     + "WHERE logradouro=" + "'" + logradouro + "'");
-            
+
             rs = stmt.executeQuery(); //executando a query
 
             // o result set contém os resultados da operação
             if (rs.next()) {
-                
+
                 endereco = new Endereco();
 
                 //Recuperando os dados do result set.
@@ -190,7 +193,7 @@ public class DAOEndereco {
                 endereco.setCidade(rs.getString("cidade"));
                 endereco.setEstado("estado");
                 endereco.setCep("cep");
-                
+
             }
         } catch (ClassNotFoundException ex) {
             //Problemas no carregamento do driver
@@ -209,14 +212,13 @@ public class DAOEndereco {
                     con.close();
                 }
             } catch (SQLException ex) {
-                
+
                 ex.printStackTrace();
-                
+
             }
-            
+
         }
-        
+
         return endereco;
     }
 }
-

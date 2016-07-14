@@ -10,13 +10,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Medico;
-import model.Paciente;
+import model.Pessoa;
+import dao.DAOPessoa;
 
 /**
  *
  * @author klebson
- * 
- * falta implementar 
+ *
+ * falta implementar
  */
 public class DAOMedico {
 
@@ -129,8 +130,58 @@ public class DAOMedico {
         }
     }
 
-    public Paciente find() {
-        return null;
+    public Medico buscarMedico(String nome) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Medico medico = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+
+        DAOPessoa daoPessoa = new DAOPessoa();
+        medico = (Medico) daoPessoa.buscarPessoaPorNome(nome);
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idMEdico, CMR"
+                    + "FROM medico "
+                    + "WHERE Pessoa_idPessoa=" + "'" + medico.getIdPessoa() + "'");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+                medico.setIdMedico(rs.getInt("inMEdico"));
+                medico.setNumCRM(rs.getString("CMR"));
+                //Recuperando os dados do result set.
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return medico;
     }
 
 }

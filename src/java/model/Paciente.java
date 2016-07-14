@@ -23,9 +23,9 @@ public class Paciente extends Pessoa implements Serializable {
     }
     
     public Paciente(String numSUS, String nome, String dataNasc, String sexo, 
-            String cpf, String rg, String naturalidade, String email, 
+            String cpf, String rg, String naturalidade, String estadoCivil, String email, 
             String telefone, String celular, String pwd) {
-        super(nome, dataNasc, sexo, cpf, rg, naturalidade, email, 
+        super(nome, dataNasc, sexo, cpf, rg, naturalidade, estadoCivil, email, 
                 telefone, celular, pwd);
         this.numSUS = numSUS;
     }

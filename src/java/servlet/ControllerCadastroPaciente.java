@@ -42,19 +42,18 @@ public class ControllerCadastroPaciente extends HttpServlet {
         String numSUS = request.getParameter("numSUS");
         
         Paciente paciente = new Paciente(numSUS, nome, dataNasc, sexo, CPF, RG,
-                naturalidade, email, telefone, celular, pwd);
+                naturalidade, estadoCivil, email, telefone, celular, pwd);
         
         String CEP = request.getParameter("CEP");
         String logradouro = request.getParameter("logradouro");
         String numero = request.getParameter("numero");
         String complemento = request.getParameter("complemento");
         String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
         String estado = request.getParameter("estado");
         
         Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero), 
-                complemento, bairro, estado, estado, CEP);
-        
-        System.out.println(estado + sexo);
+                complemento, bairro, cidade, estado, CEP);
         
         ArrayList<Object> listaObjetos = new ArrayList<>();
         listaObjetos.add(paciente);        
@@ -62,7 +61,7 @@ public class ControllerCadastroPaciente extends HttpServlet {
         
         ControladorDAO controladorDao = new ControladorDAO();
         
-        controladorDao.construtorDeObjetos(listaObjetos, "Paciente");
+        controladorDao.addObjeto(listaObjetos, "Paciente");
         RequestDispatcher rd = request.
                 getRequestDispatcher("jsps/cadastroSucesso.jsp");
         rd.forward(request, response);

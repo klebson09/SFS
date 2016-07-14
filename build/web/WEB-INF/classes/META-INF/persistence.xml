@@ -13,6 +13,8 @@
     <class>model.Endereco</class>
     <class>model.Pessoa_1</class>
     <class>model.Medico</class>
+    <class>model.Exame</class>
+    <class>model.Consulta</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

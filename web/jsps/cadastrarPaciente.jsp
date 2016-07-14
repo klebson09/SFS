@@ -61,13 +61,17 @@
                             <input id="inputDataNasc" type="data" name="dataNasc" class="input username" /><br>
                             <label for="sexo" >Sexo</label>
                             <select id="sexo" name=sexo>
-                                <option>Masculino</option>
-                                <option>Feminino</option>
+                                <option>M</option>
+                                <option>F</option>
                             </select><br> <br>
                             <label for="estadoCicvil" >Estado Civil</label>
                             <select id="estadoCivil" name=estadoCivil>
-                                <option>Solteiro</option>
-                                <option>Casado</option>
+                                <option>Solteiro(a)</option>
+                                <option>Casado(a)</option>
+                                <option>Divorciado(a)</option>
+                                <option>Viúvo(a)</option>
+                                <option>Separado(a)</option>
+                                <option>Companheiro(a)</option>
                             </select><br><br>
                             <label for="inputCPF">CPF</label> <br>
                             <input id="inputCPF" type="text" name="cpf"  class="input username" /> <br>
@@ -89,7 +93,7 @@
                         <fieldset>
                             <legend>Endereço</legend>
                             <label for="inputCep">CEP</label> <br>
-                            <input id="inputCep" type="text" name="cep" class="input username" /><br>
+                            <input id="inputCep" type="text" name="CEP" class="input username" /><br>
                             <label for="inputRua">Rua</label> <BR>
                             <input id="inputRua" type="text" name="logradouro"  class="input username" /> <br>
                             <label for="inputNumero">Número</label> <br>
@@ -144,7 +148,7 @@
                         </div>
                     </fieldset>
                     <input type="submit" name="submit" value="Cadastrar" class="button"  />
-                    <input type="submit" name="submit" value="Cancelar" class="register"  />
+                    <input type="submit" name="submit" value="Cancelar" class="button"  />
                 </div>
         </div>
 

@@ -17,7 +17,7 @@ public class DAOConsulta implements Serializable {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into consulta "
-                + "(Paciente_idPaciente, Paciente_numSUS, MEdico_idMEdico, MEdico_CRM, tipo_consulta, observacao, arquivo_consulta)"
+                + "(Paciente_idPaciente, Paciente_numSUS, MEdico_idMEdico, MEdico_CRM, tipo_consulta, observacao, idEndereco)"
                 + " values (?,?,?,?,?,?,?)";
 
         try {
@@ -28,14 +28,13 @@ public class DAOConsulta implements Serializable {
             // seta os valores
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, consulta.getPacienteidPaciente());
-            stmt.setString(2, consulta.getPacientenumSUS());
-            stmt.setInt(3, consulta.getMedicoidMEdico());
+            stmt.setInt(1, consulta.getPacienteIdPaciente());
+            stmt.setString(2, consulta.getPacienteNumSUS());
+            stmt.setInt(3, consulta.getMedicoIdMedico());
             stmt.setString(4, consulta.getMedicoCRM());
             stmt.setString(5, consulta.getTipoConsulta());
             stmt.setString(6, consulta.getObservacao());
-          //  stmt.setByte(7, consulta.getArquivoConsulta());
-
+            stmt.setInt(7, consulta.getIdEndereco());
             // executa
             stmt.execute();
             stmt.close();
@@ -70,9 +69,9 @@ public class DAOConsulta implements Serializable {
 
 //Recuperando os dados do result set.
                 consulta.setIdConsulta(Integer.MIN_VALUE);
-                consulta.setPacienteidPaciente(rs.getInt("Paciente_idPaciente"));
-                consulta.setPacientenumSUS(rs.getString("Paciente_numSUS"));
-                consulta.setMedicoidMEdico(rs.getInt("MEdico_idMEdico"));
+                consulta.setPacienteIdPaciente(rs.getInt("Paciente_idPaciente"));
+                consulta.setPacienteNumSUS(rs.getString("Paciente_numSUS"));
+                consulta.setMedicoIdMedico(rs.getInt("MEdico_idMEdico"));
                 consulta.setMedicoCRM(rs.getString("MEdico_CRM"));
                 consulta.setTipoConsulta(rs.getString("tipo_consulta"));
                 consulta.setObservacao(rs.getString("observacao"));

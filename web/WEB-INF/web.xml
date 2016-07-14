@@ -40,6 +40,15 @@
         <servlet-name>ControllerCadastroMedico</servlet-name>
         <url-pattern>/ControllerCadastroMedico</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ControllerCadastroExame</servlet-name>
+        <servlet-class>servlet.ControllerCadastroExame</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerCadastroExame</servlet-name>
+        <url-pattern>/ControllerCadastroExame</url-pattern>
+    </servlet-mapping>
        
     <servlet>
         <servlet-name>ControllerEndereco</servlet-name>
@@ -59,7 +68,6 @@
         <url-pattern>/ControllerConsulta</url-pattern>
     </servlet-mapping>
     
-    
     <servlet>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
@@ -69,7 +77,6 @@
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
 
-    
     
     <session-config>
         <session-timeout>1</session-timeout>

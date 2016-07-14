@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Endereco;
 import model.Medico;
 
 public class ControllerCadastroMedico extends HttpServlet {
@@ -28,35 +29,39 @@ public class ControllerCadastroMedico extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String nome = request.getParameter("nome");
-        String dataNasc = request.getParameter("dataNasc");//pegando dados de um formulário WEB 
-        String rg = request.getParameter("rg");
-        String cpf = request.getParameter("cpf");
-//        String telefone = request.getParameter("telefone");
-//        String celular = request.getParameter("celular");
+        String dataNasc = request.getParameter("dataNasc");
+        String sexo = request.getParameter("sexo");
+        String CPF = request.getParameter("cpf");
+        String RG = request.getParameter("rg");
+        String naturalidade = request.getParameter("naturalidade");
+        String estadoCivil = request.getParameter("estadoCivil");
         String email = request.getParameter("email");
+        String telefone = request.getParameter("telefone");
+        String celular = request.getParameter("celular");
+        String pwd = request.getParameter("senha");
         String numCRM = request.getParameter("numCRM");
-        String pwd = request.getParameter("pwd");
-//        System .out.println("mostra logradouro " +nome+ "complemento:" + dataNasc + "n:" + cpf + "cidade:" + rg + "estado:" + email + "cep:" + pwd + "");
-        // pessoa.setIdPessoa(Integer.MIN_VALUE);
-        //converter string para data
-//        pessoa.setDataNasc(dataNasc);
+        
+        Medico medico = new Medico(numCRM, nome, dataNasc, sexo, CPF, RG, 
+                naturalidade, estadoCivil, email, telefone, celular, pwd);
 
-        Medico medico = new Medico();
-        medico.setNumCRM(numCRM);
-
-        medico.setNome(nome);
-        medico.setDataNasc(dataNasc);
-        medico.setCPF(cpf);
-        medico.setRG(rg);
-        medico.setEmail(email);
-        medico.setPwd(pwd);
-
+        String CEP = request.getParameter("CEP");
+        String logradouro = request.getParameter("logradouro");
+        String numero = request.getParameter("numero");
+        String complemento = request.getParameter("complemento");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
+        
+        Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero), 
+                complemento, bairro, cidade, estado, CEP);
+        
         ArrayList<Object> listaObjetos = new ArrayList<>();
         listaObjetos.add(medico);
+        listaObjetos.add(endereco);
 
         ControladorDAO controladorDao = new ControladorDAO();
 
-        controladorDao.construtorDeObjetos(listaObjetos, "Medico");
+        controladorDao.addObjeto(listaObjetos, "Medico");
         RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
         rd.forward(request, response);
 

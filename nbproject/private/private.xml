@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOEndereco.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOConsulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOMedico.java</file>
             <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/servlet/ControladorDAO.java</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Pessoa.java</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Paciente.java</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Endereco.java</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/servlet/ControllerCadastroPaciente.java</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/web/jsps/cadastrarPaciente.jsp</file>
-            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Medico.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/web/jsps/cadastrarConsulta.jsp</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/servlet/ControllerConsulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/model/Consulta.java</file>
+            <file>file:/C:/Users/Pedro%20Jatoba/Documents/NetBeansProjects/SFS2/SFS/src/java/dao/DAOPessoa.java</file>
         </group>
     </open-files>
 </project-private>

@@ -18,6 +18,7 @@ public abstract class Pessoa implements Serializable {
     protected String CPF;
     protected String RG;
     protected String naturalidade;
+    protected String estadoCivil;
     protected String email;
     protected String telefone;
     protected String celular;
@@ -32,14 +33,15 @@ public abstract class Pessoa implements Serializable {
     }
     
     public Pessoa(String nome, String dataNasc, String sexo, 
-            String cpf, String rg, String naturalidade, String email, 
-            String telefone, String celular, String pwd){
+            String cpf, String rg, String naturalidade, String estadoCivil,
+            String email, String telefone, String celular, String pwd){
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.sexo = sexo;
         this.CPF = cpf;
         this.RG = rg;
         this.naturalidade = naturalidade;
+        this.estadoCivil = estadoCivil;
         this.email = email;
         this.telefone = telefone;
         this.celular = celular;
@@ -47,8 +49,9 @@ public abstract class Pessoa implements Serializable {
     }
     
     public Pessoa(Integer idPessoa, String nome, String dataNasc, String sexo, 
-            String cpf, String rg, String naturalidade, String email, 
-            String telefone, String celular, String pwd, Integer inEndereco){
+            String cpf, String rg, String naturalidade, String estadoCivil, 
+            String email, String telefone, String celular, String pwd, 
+            Integer inEndereco){
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.dataNasc = dataNasc;
@@ -56,6 +59,7 @@ public abstract class Pessoa implements Serializable {
         this.CPF = cpf;
         this.RG = rg;
         this.naturalidade = naturalidade;
+        this.estadoCivil = estadoCivil;
         this.email = email;
         this.telefone = telefone;
         this.celular = celular;
@@ -117,6 +121,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setNaturalidade(String naturalidade) {
         this.naturalidade = naturalidade;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
     public String getEmail() {

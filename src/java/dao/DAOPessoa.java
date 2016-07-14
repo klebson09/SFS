@@ -18,8 +18,8 @@ public class DAOPessoa {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into pessoa "
-                + "(nome, data_nasc, CPF, RG, email, pwd, idEndereco)"
-                + " values (?,?,?,?,?,?,?)";
+                + "(nome, data_nasc, sexo, CPF, RG, naturalidade, estadoCivil, telefone, celular, email, pwd, idEndereco)"
+                + " values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
 
@@ -31,11 +31,16 @@ public class DAOPessoa {
                     PreparedStatement stmt = con.prepareStatement(sql)) {
                         stmt.setString(1, pessoa.getNome());
                         stmt.setString(2, pessoa.getDataNasc());
-                        stmt.setString(3, pessoa.getCPF());
-                        stmt.setString(4, pessoa.getRG());
-                        stmt.setString(5, pessoa.getEmail());
-                        stmt.setString(6, pessoa.getPwd());
-                        stmt.setInt(7, pessoa.getIdEndereco());
+                        stmt.setString(3, pessoa.getSexo());
+                        stmt.setString(4, pessoa.getCPF());
+                        stmt.setString(5, pessoa.getRG());
+                        stmt.setString(6, pessoa.getNaturalidade());
+                        stmt.setString(7, pessoa.getEstadoCivil());
+                        stmt.setString(8, pessoa.getTelefone());
+                        stmt.setString(9, pessoa.getCelular());
+                        stmt.setString(10, pessoa.getEmail());
+                        stmt.setString(11, pessoa.getPwd());
+                        stmt.setInt(12, pessoa.getIdEndereco());
                         stmt.execute();
                         stmt.close();
                     }
@@ -220,5 +225,63 @@ public class DAOPessoa {
 
         return paciente;
     }
+    
+    public Pessoa buscarPessoaPorNome(String nome) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Pessoa medico = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idPessoa, nome, data_nasc, CPF, RG, email, pwd "
+                    + "FROM pessoa "
+                    + "WHERE nome=" + "'" + nome + "'");
 
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+
+                medico = new Paciente();
+
+                //Recuperando os dados do result set.
+                medico.setIdPessoa(rs.getInt("idPessoa"));
+                medico.setNome(rs.getString("nome"));
+                medico.setDataNasc(rs.getString("data_nasc"));
+                medico.setCPF(rs.getString("CPF"));
+                medico.setRG(rs.getString("RG"));
+                medico.setEmail(rs.getString("email"));
+                medico.setPwd(rs.getString("pwd"));
+                System.out.println(medico);
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return medico;
+    }
 }

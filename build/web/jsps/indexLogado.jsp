@@ -40,7 +40,7 @@
 
                 <h1>Você está logado!</h1>  
                 <%
-                    LoginBean bean = (LoginBean) request.getAttribute("bean");
+                    LoginBean bean = (LoginBean) session.getAttribute("bean");
                     out.print("Bem vindo, " + bean.getEmail());
                     out.print("</br>");
                     out.print("Sua sessão está definida pela seguinte ID:" + session.getId());
