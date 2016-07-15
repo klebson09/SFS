@@ -59,6 +59,10 @@
                     <div class="pessoal">
                         <fieldset>
                             <legend>Exames</legend>
+                            <label for="consultas" >Consulta</label> <br>
+                            <select name="consultas">
+                                <option>Medico1</option>
+                            </select><br> <br>
                             <label for="inputTipoExame" >Tipo do Exame</label> <br>
                             <input id="inputTipoExame" type="text" name="tipoExame"  class="input username" /> <br>
                             <label for="inputEspecialidade">Especialidade</label> <br>
@@ -67,7 +71,6 @@
                             <input id="inputObservacao" type="text" maxlength="55" name="observacao"  class="input username" /> <br>
                             <label for="inputDataDoExame">Data do Exame</label> <br>
                             <input id="inputDataDoExame" type="text" name="dataExame" class="input username" /><br>
-
                         </fieldset>
                     </div>
 

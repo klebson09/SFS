@@ -17,7 +17,7 @@ public class DAOConsulta implements Serializable {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into consulta "
-                + "(Paciente_idPaciente, Paciente_numSUS, MEdico_idMEdico, MEdico_CRM, tipo_consulta, observacao, idEndereco)"
+                + "(Paciente_idPaciente, Paciente_numSUS, MEdico_idMEdico, MEdico_CRM, tipoConsulta, observacao, idEndereco)"
                 + " values (?,?,?,?,?,?,?)";
 
         try {

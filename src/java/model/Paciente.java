@@ -6,7 +6,10 @@
 package model;
 
 import java.io.Serializable;
-
+/**
+ *
+ * @author klebson  
+ */
 public class Paciente extends Pessoa implements Serializable {
 
     private Integer idPaciente;
@@ -15,7 +18,12 @@ public class Paciente extends Pessoa implements Serializable {
 
     public Paciente() {
     }
-
+    
+    public Paciente(String email, String senha){
+        super.email = email;
+        super.pwd = senha;
+    }
+    
     public Paciente(Integer idPaciente, String numSUS, Integer PessoaIdPessoa) {
         this.idPaciente = idPaciente;
         this.numSUS = numSUS;

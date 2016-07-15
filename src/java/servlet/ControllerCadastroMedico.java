@@ -35,6 +35,7 @@ public class ControllerCadastroMedico extends HttpServlet {
 
         Medico medico = new Medico(numCRM, nome, dataNasc, sexo, CPF, RG,
                 naturalidade, estadoCivil, email, telefone, celular, pwd);
+        
         String CEP = request.getParameter("CEP");
         String logradouro = request.getParameter("logradouro");
         String numero = request.getParameter("numero");

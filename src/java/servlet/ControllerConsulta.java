@@ -1,13 +1,19 @@
 package servlet;
 
+import controlador.Login.LoginBean;
 import dao.DAOConsulta;
 import model.Consulta;
 import java.io.IOException;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Endereco;
+import model.Medico;
+import model.Paciente;
 
 public class ControllerConsulta extends HttpServlet {
 
@@ -16,31 +22,47 @@ public class ControllerConsulta extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        LoginBean bean= (LoginBean) session.getAttribute("bean");
         
         response.setContentType("text/html;charset=UTF-8");
-        String pacientenumSUS = request.getParameter("pacientenumSUS");
-        String medico = request.getParameter("medico");
+        String nomeMedico = request.getParameter("medico");
         String tipoConsulta = request.getParameter("tipoConsulta");
         String observacao = request.getParameter("observacao");
+        
+        String nomePaciente = bean.getEmail();
+        String nomeSenha = bean.getPassword();
+        
+        Paciente paciente = new Paciente(bean.getEmail(), bean.getPassword());
+        Medico medico  = new Medico();
+        medico.setNome(nomeMedico);
+        
         Consulta consulta = new Consulta();
-        
-        ControladorDAO controladorDao = new ControladorDAO();
-        
-        
-        consulta.setPacienteNumSUS(pacientenumSUS);
-        consulta.setMedicoCRM(medico);
         consulta.setTipoConsulta(tipoConsulta);
         consulta.setObservacao(observacao);
+        
+        String CEP = request.getParameter("CEP");
+        String logradouro = request.getParameter("logradouro");
+        String numero = request.getParameter("numero");
+        String complemento = request.getParameter("complemento");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
 
-        DAOConsulta daoConsulta = new DAOConsulta();
-        daoConsulta.adicionar(consulta);
+        Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero),
+                complemento, bairro, cidade, estado, CEP);
 
+        ArrayList<Object> listaObjetos = new ArrayList<>();
+        listaObjetos.add(consulta);
+        listaObjetos.add(endereco);
+        listaObjetos.add(paciente);
+        listaObjetos.add(medico);
+        
+        ControladorDAO controladorDao = new ControladorDAO();
+        controladorDao.addObjeto(listaObjetos, "Consulta");
+        RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
+        rd.forward(request, response);
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }
 //   ------>>>> SÃO OS DADOS DO ENDEREÇO <<<<-------
 //    int numero = Integer.parseInt(request.getParameter("numero"));

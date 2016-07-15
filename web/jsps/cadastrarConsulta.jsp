@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
 
@@ -61,9 +62,19 @@
                                 <option>Traumatologia</option>
                             </select><br> <br>
                             Médico
+							<--! ele esta assim agora: -->
                             <select name=medico>
                                 <option>Medico1</option>
                             </select><br> <br>
+							<!-- e tentamos colocar o jstl assim:
+							<jsp:useBean id="daoMedico" class="dao.DAOMedico"/>
+                                <c:forEach var="medico" items="${daoMedico.listar}"> 
+                                    <td><c:out value="${medico.nome}" /></td>
+                                    
+                                </c:forEach>
+							porem n funciona colocando dentro da tag <select>
+							trocando o <td> que esta agor por <option>
+							-->
                             Observação
                             <textarea rows="4" cols="50" name="observacao">	
                             </textarea>  <br>

@@ -6,11 +6,13 @@
 package model;
 
 import java.io.Serializable;
-//import java.util.Collection;
-//import java.util.Date;
 
-public abstract class Pessoa implements Serializable {
-
+/**
+ *
+ * @author klebson
+ * 
+ */
+public class Pessoa implements Serializable {
     protected Integer idPessoa;
     protected String nome;
     protected String dataNasc;
@@ -189,5 +191,21 @@ public abstract class Pessoa implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    public void parser(Pessoa pessoa){
+        this.CPF = pessoa.CPF;
+        this.RG = pessoa.RG;
+        this.celular = pessoa.celular;
+        this.email = pessoa.email;
+        this.dataNasc = pessoa.dataNasc;
+        this.estadoCivil = pessoa.estadoCivil;
+        this.idEndereco = pessoa.idEndereco;
+        this.idPessoa =  pessoa.idPessoa;
+        this.naturalidade = pessoa.naturalidade;
+        this.nome = pessoa.nome;
+        this.pwd = pessoa.pwd;
+        this.sexo = pessoa.sexo;
+        this.telefone = pessoa.telefone;
     }
 }

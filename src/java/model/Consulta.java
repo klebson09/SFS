@@ -33,7 +33,7 @@ public class Consulta implements Serializable {
     private String observacao;
     private byte[] arquivoConsulta;
     private Integer idEndereco;
-
+    
     public Consulta() {
     }
 
@@ -41,13 +41,17 @@ public class Consulta implements Serializable {
         this.idConsulta = idConsulta;
     }
 
-    public Consulta(Integer idConsulta, int pacienteidPaciente, 
-            String pacientenumSUS, int mEdicoidMEdico, String mEdicoCRM) {
+    public Consulta(Integer idConsulta, int pacienteidPaciente, String pacientenumSUS, 
+            int medicoIdMedico, String medicoCRM, String tipoConsulta, 
+            String obs, int idEndereco) {
         this.idConsulta = idConsulta;
         this.pacienteIdPaciente = pacienteidPaciente;
         this.pacienteNumSUS = pacientenumSUS;
-        this.medicoIdMedico = mEdicoidMEdico;
-        this.medicoCRM = mEdicoCRM;
+        this.medicoIdMedico = medicoIdMedico;
+        this.medicoCRM = medicoCRM;
+        this.tipoConsulta = tipoConsulta;
+        this.idEndereco =  idEndereco;
+        this.observacao = obs;
     }
     
     public Consulta(int pacienteidPaciente, String pacientenumSUS, 

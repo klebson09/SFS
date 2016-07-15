@@ -3,7 +3,10 @@ package controlador.Login;
 import dao.DAOPessoa;
 import java.sql.SQLException;
 import model.Pessoa;
-
+/**
+ *
+ * @author klebson  
+ */
 public class LoginBean {
     private DAOPessoa daoPessoa = null;
     private Pessoa pessoaTmp = null;

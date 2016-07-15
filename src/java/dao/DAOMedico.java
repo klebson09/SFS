@@ -7,23 +7,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Medico;
-import model.Paciente;
 import model.Pessoa;
-import dao.DAOPessoa;
 
 /**
  *
  * @author klebson
-<<<<<<< HEAD
- * 
- * falta implementar 
-=======
- *
- * falta implementar
->>>>>>> 12e3d2c289f3036c05bfbb998eb0770f62eb6262
  */
 public class DAOMedico {
 
@@ -140,11 +133,65 @@ public class DAOMedico {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        Medico medico = new Medico();
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+
+        DAOPessoa daoPessoa = new DAOPessoa();
+        medico.parser(daoPessoa.buscarPessoaPorNome(nome));
+        int idpessoa = medico.getIdPessoa();
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idMEdico, CRM "
+                    + "FROM medico "
+                    + "WHERE Pessoa_idPessoa=" + "'" + idpessoa + "'");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+                medico.setIdMedico(rs.getInt("idMEdico"));
+                medico.setNumCRM(rs.getString("CRM"));
+                //Recuperando os dados do result set.
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return medico;
+    }
+
+    public Medico buscarMedicoPorUsuario(String email, String senha) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         Medico medico = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
 
         DAOPessoa daoPessoa = new DAOPessoa();
-        medico = (Medico) daoPessoa.buscarPessoaPorNome(nome);
+        medico = (Medico) daoPessoa.buscarPessoa(email, senha);
 
         try {
             Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
@@ -158,7 +205,7 @@ public class DAOMedico {
 
             // o result set contém os resultados da operação
             if (rs.next()) {
-                medico.setIdMedico(rs.getInt("inMEdico"));
+                medico.setIdMedico(rs.getInt("idMEdico"));
                 medico.setNumCRM(rs.getString("CMR"));
                 //Recuperando os dados do result set.
 
@@ -190,4 +237,69 @@ public class DAOMedico {
         return medico;
     }
 
+    //lista de medicos kl
+    public List<Medico> getListar() {
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Medico medico;
+        DAOPessoa daoPessoa = new DAOPessoa();
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        List<Medico> medicos = new ArrayList<>();
+        List<Pessoa> pessoas;
+
+        pessoas = daoPessoa.listarPessoa();
+
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT *"
+                    + "FROM medico ");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            while (rs.next()) {
+                medico = new Medico();
+                medico.setIdMedico(rs.getInt("idMEdico"));
+                medico.setNumCRM(rs.getString("CRM"));
+                medico.setPessoaIdPessoa(rs.getInt("pessoa_IdPessoa"));
+                medicos.add(medico);
+            }
+            for (int i = 0; i < medicos.size(); i++) {
+                for (int j = 0; j < pessoas.size(); j++) {
+                    if (medicos.get(i).getPessoaIdPessoa().equals(pessoas.get(j).getIdPessoa())) {
+                        medicos.get(i).setNome(pessoas.get(j).getNome());
+                    }
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return medicos;
+    }
 }

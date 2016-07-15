@@ -63,7 +63,12 @@
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
-
+    
+    <erro-page>
+        <error-code>404</error-code>
+        <location>/erroGeral</location>
+    </erro-page>
+    
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/erroGeral.jsp</location>
@@ -75,7 +80,7 @@
     
     <welcome-file-list>
         <!--        <welcome-file>jsps/endereco.jsp</welcome-file>-->
-        <welcome-file>jsps/listarConsulta.jsp</welcome-file>
+        <welcome-file>jsps/login2.jsp</welcome-file>
         <!--                <welcome-file>jsps/indexLogado.jsp</welcome-file>-->
         <!--        <welcome-file>jsps/listarExame.jsp</welcome-file>-->
     </welcome-file-list>

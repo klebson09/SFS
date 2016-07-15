@@ -18,6 +18,7 @@ public class ControladorDAO {
     private final DAOPaciente daopaciente;
     private final DAOMedico daomedico;
     private final DAOEndereco daoendereco;
+    private final DAOConsulta daoconsulta;
     private Integer idPessoa = null;
     private Integer idEndereco = null;
     private Paciente pacienteTmp = null;
@@ -31,6 +32,7 @@ public class ControladorDAO {
         this.daopaciente = new DAOPaciente();
         this.daoendereco = new DAOEndereco();
         this.daomedico = new DAOMedico();
+        this.daoconsulta = new DAOConsulta();
     }
     
     /**
@@ -65,7 +67,7 @@ public class ControladorDAO {
                 AdicionarMedico(medicoTmp, enderecoTmp);
                 break;
             case "Consulta":
-                AdicionarConsulta(consultaTmp);
+                AdicionarConsulta(consultaTmp, enderecoTmp, pacienteTmp, medicoTmp);
                 break;
             case "Exame":
                 break;
@@ -114,8 +116,25 @@ public class ControladorDAO {
         daomedico.adicionar(medico);
     }
 
-    protected void AdicionarConsulta(Consulta consulta) {
-
+    protected void AdicionarConsulta(Consulta consulta, Endereco endereco, 
+            Paciente paciente, Medico medico) {
+        Paciente pacienteCompleto;
+        Medico medicoCompleto;
+        
+        daoendereco.adicionar(endereco);
+        idEndereco = daoendereco.buscarEndereco(endereco.getLogradouro()).
+                getIdEndereco();
+        
+        pacienteCompleto = daopaciente.buscarPaciente(paciente.getEmail(), paciente.getPwd());
+        medicoCompleto = daomedico.buscarMedico(medico.getNome());
+        
+        consulta.setPacienteIdPaciente(pacienteCompleto.getIdPaciente());
+        consulta.setPacienteNumSUS(pacienteCompleto.getNumSUS());
+        consulta.setMedicoIdMedico(medicoCompleto.getIdMedico());
+        consulta.setMedicoCRM(medicoCompleto.getNumCRM());
+        consulta.setIdEndereco(idEndereco);
+        
+        daoconsulta.adicionar(consulta);
     }
     protected void AdicionarExame(Exame exame) {
 
@@ -125,5 +144,17 @@ public class ControladorDAO {
         Medico medicoBusca;
          medicoBusca = daomedico.buscarMedico(nomeMedico);
         return medicoBusca;
+    }
+    
+    protected Medico buscarMedico(String email, String pwd){
+        Medico medicoBusca;
+         medicoBusca = daomedico.buscarMedicoPorUsuario(email, pwd);
+        return medicoBusca;
+    }
+    
+    protected Paciente buscarPaciente(String email, String pwd){
+        Paciente pacienteBusca;
+         pacienteBusca = daopaciente.buscarPaciente(email, pwd);
+        return pacienteBusca;
     }
 }
