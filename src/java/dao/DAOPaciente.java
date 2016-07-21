@@ -13,6 +13,10 @@ import java.util.logging.Logger;
 import model.Endereco;
 import model.Pessoa;
 
+/**
+ *
+ * @author klebson  
+ */
 public class DAOPaciente {
 
     //DAOPessoa daoPessoa = new DAOPessoa();
@@ -127,8 +131,58 @@ public class DAOPaciente {
         }
     }
 
-    public Paciente find() {
-        return null;
+    public Paciente buscarPaciente(String email, String senha) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Paciente paciente = new Paciente();
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+
+        DAOPessoa daoPessoa = new DAOPessoa();
+        paciente.parser(daoPessoa.buscarPessoa(email, senha));
+        int idpessoa = paciente.getIdPessoa();
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idPaciente, numSUS "
+                    + "FROM paciente "
+                    + "WHERE Pessoa_idPessoa=" + "'" + idpessoa + "'");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+                paciente.setIdPaciente(rs.getInt("idPaciente"));
+                paciente.setNumSUS(rs.getString("numSUS"));
+                //Recuperando os dados do result set.
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return paciente;
     }
 
 }

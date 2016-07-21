@@ -36,11 +36,11 @@
 
             <figure class="item">
                
-  <%@page import="servlet.LoginBean"%>  
+  <%@page import="controlador.Login.LoginBean"%>  
 
                 <h1>Você está logado!</h1>  
                 <%
-                    LoginBean bean = (LoginBean) request.getAttribute("bean");
+                    LoginBean bean = (LoginBean) session.getAttribute("bean");
                     out.print("Bem vindo, " + bean.getEmail());
                     out.print("</br>");
                     out.print("Sua sessão está definida pela seguinte ID:" + session.getId());
@@ -68,6 +68,7 @@
                 <input type="submit" name="opcao" class="button" value="ListarConsulta">
                 <input type="submit" name="opcao" class="button" value="ListarExame">
                 <input type="submit" name="opcao" class="button" value="CadastrarPaciente">
+                <input type="submit" name="opcao" class="button" value="CadastrarMedico">
                 <input type="submit" name="opcao" class="button" value="Sair">
             </form>
         </div>

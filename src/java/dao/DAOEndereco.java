@@ -21,27 +21,31 @@ public class DAOEndereco {
         Connection con = null;
         String url = "jdbc:mysql://localhost:3306/bd_sistema_ficha_saude";
         String sql = "insert into endereco "
-                + "(logradouro, numero, complemento, cidade, estado, cep)"
-                + " values (?,?,?,?,?,?)";
+                + "(logradouro, numero, complemento, bairro, cidade, estado, cep)"
+                + " values (?,?,?,?,?,?,?)";
 
         try {
+            if (buscarEndereco(endereco.getLogradouro()) == null) {
+                Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
 
-            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+                con = DriverManager.getConnection(url, "root", "");
+                // seta os valores
+                PreparedStatement stmt = con.prepareStatement(sql);
 
-            con = DriverManager.getConnection(url, "root", "");
-            // seta os valores
-            PreparedStatement stmt = con.prepareStatement(sql);
+                stmt.setString(1, endereco.getLogradouro());
+                stmt.setInt(2, endereco.getNumero());
+                stmt.setString(3, endereco.getComplemento());
+                stmt.setString(4, endereco.getBairro());
+                stmt.setString(5, endereco.getCidade());
+                stmt.setString(6, endereco.getEstado());
+                stmt.setString(7, endereco.getCep());
 
-            stmt.setString(1, endereco.getLogradouro());
-            stmt.setInt(2, endereco.getNumero());
-            stmt.setString(3, endereco.getComplemento());
-            stmt.setString(4, endereco.getCidade());
-            stmt.setString(5, endereco.getEstado());
-            stmt.setString(6, endereco.getCep());
-
-            // executa
-            stmt.execute();
-            stmt.close();
+                // executa
+                stmt.execute();
+                stmt.close();
+            }else{
+                System.out.println("Ja esxiste um endereco");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException ex) {
@@ -49,8 +53,6 @@ public class DAOEndereco {
         }
 
     }
-
-    
 
     public void list() throws SQLException {
         Connection con = null;
@@ -70,7 +72,7 @@ public class DAOEndereco {
 
                 endereco = new Endereco();
 
-//Recuperando os dados do result set.
+                //Recuperando os dados do result set.
                 endereco.setIdEndereco(Integer.MIN_VALUE);
                 endereco.setLogradouro(rs.getString("logradouro"));
                 endereco.setNumero(rs.getInt("numero"));
@@ -105,8 +107,7 @@ public class DAOEndereco {
         }
     }
 
-    
-     public int pegaUltimaPessoa() {
+    public int pegaUltimaPessoa() {
 
         Connection con = null;
         Statement stmt = null;
@@ -123,8 +124,7 @@ public class DAOEndereco {
             // o result set contém os resultados da operação
             if (rs.next()) {
 
-                pessoa = new Pessoa();
-
+                // pessoa = new Pessoa();
 //Recuperando os dados do result set.
 //                endereco.setIdEndereco(Integer.MIN_VALUE);
 //                endereco.setLogradouro(rs.getString("logradouro"));
@@ -133,9 +133,7 @@ public class DAOEndereco {
 //                endereco.setCidade(rs.getString("cidade"));
 //                endereco.setEstado(rs.getString("estado"));
 //                endereco.setCep(rs.getString("cep"));
-                  pessoa.setIdPessoa(rs.getInt("idPessoa"));//     <<<<<<<<<<<<<<------------------- obs o getint pode está errado
-                
-                System.out.println("________________>>>>>>>>>>>>");
+                pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 System.out.println(pessoa.toString());
                 return rs.getInt("idPessoa");
             }
@@ -163,12 +161,64 @@ public class DAOEndereco {
 
         }
 
-        return  0;
+        return 0;
     }
-    
-    
-    
-    public Endereco find() {
-        return null;
+
+    public Endereco buscarEndereco(String logradouro) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Endereco endereco = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT idEndereco, logradouro, numero, complemento, cidade, estado, cep "
+                    + "FROM endereco "
+                    + "WHERE logradouro=" + "'" + logradouro + "'");
+
+            rs = stmt.executeQuery(); //executando a query
+
+            // o result set contém os resultados da operação
+            if (rs.next()) {
+
+                endereco = new Endereco();
+
+                //Recuperando os dados do result set.
+                endereco.setIdEndereco(rs.getInt("idEndereco"));
+                endereco.setLogradouro(rs.getString("logradouro"));
+                endereco.setNumero(rs.getInt("numero"));
+                endereco.setComplemento(rs.getString("complemento"));
+                endereco.setCidade(rs.getString("cidade"));
+                endereco.setEstado("estado");
+                endereco.setCep("cep");
+
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return endereco;
     }
 }

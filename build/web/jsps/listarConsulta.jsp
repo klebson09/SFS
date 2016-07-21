@@ -32,7 +32,7 @@
                 <!--HEADER-->
                 <div class="header">
                     <!--TITLE-->
-                    <h1 align="center">Lista de Consultas-SFS</h1>
+                    <h1 align="center">Lista de Médicos-SFS</h1>
                     <!--END TITLE-->
 
                     <!--DESCRIPTION-->
