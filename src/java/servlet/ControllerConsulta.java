@@ -20,51 +20,60 @@ public class ControllerConsulta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        LoginBean bean= (LoginBean) session.getAttribute("bean");
-        
-        response.setContentType("text/html;charset=UTF-8");
-        String nomeMedico = request.getParameter("medico");
-        String tipoConsulta = request.getParameter("tipoConsulta");
-        String dataConsulta = request.getParameter("dataConsulta");
-        String observacao = request.getParameter("observacao");
-        String descricaoConsulta = request.getParameter("descricaoConsulta");
-        
-        Paciente paciente = new Paciente(bean.getEmail(), bean.getPassword());
-        Medico medico  = new Medico();
-        medico.setNome(nomeMedico);
-        
-        Consulta consulta = new Consulta();
-        consulta.setDataConsulta(dataConsulta);
-        consulta.setTipoConsulta(tipoConsulta);
-        consulta.setObservacao(observacao);
-        consulta.setDescricaoConsulta(descricaoConsulta);
-        
-        String CEP = request.getParameter("CEP");
-        String logradouro = request.getParameter("logradouro");
-        String numero = request.getParameter("numero");
-        String complemento = request.getParameter("complemento");
-        String bairro = request.getParameter("bairro");
-        String cidade = request.getParameter("cidade");
-        String estado = request.getParameter("estado");
+            
 
-        Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero),
-                complemento, bairro, cidade, estado, CEP);
+        String[] values = request.getParameterValues("submit");
+        if (values[0].equals("Cancelar")) {
+            RequestDispatcher rd = request.getRequestDispatcher("jsps/indexLogado.jsp");
+            rd.forward(request, response);
+        } else if(values[0].equals("Inserir")) {
+            
+            HttpSession session = request.getSession();
+            LoginBean bean = (LoginBean) session.getAttribute("bean");
 
-        ArrayList<Object> listaObjetos = new ArrayList<>();
-        listaObjetos.add(consulta);
-        listaObjetos.add(endereco);
-        listaObjetos.add(paciente);
-        listaObjetos.add(medico);
-        
-        ControladorDAO controladorDao = new ControladorDAO();
-        controladorDao.addObjeto(listaObjetos, "Consulta");
-        RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
-        rd.forward(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+            String nomeMedico = request.getParameter("medico");
+            String tipoConsulta = request.getParameter("tipoConsulta");
+            String dataConsulta = request.getParameter("dataConsulta");
+            String observacao = request.getParameter("observacao");
+            String descricaoConsulta = request.getParameter("descricaoConsulta");
+
+            Paciente paciente = new Paciente(bean.getEmail(), bean.getPassword());
+            Medico medico = new Medico();
+            medico.setNome(nomeMedico);
+
+            Consulta consulta = new Consulta();
+            consulta.setDataConsulta(dataConsulta);
+            consulta.setTipoConsulta(tipoConsulta);
+            consulta.setObservacao(observacao);
+            consulta.setDescricaoConsulta(descricaoConsulta);
+
+            String CEP = request.getParameter("CEP");
+            String logradouro = request.getParameter("logradouro");
+            String numero = request.getParameter("numero");
+            String complemento = request.getParameter("complemento");
+            String bairro = request.getParameter("bairro");
+            String cidade = request.getParameter("cidade");
+            String estado = request.getParameter("estado");
+
+            Endereco endereco = new Endereco(logradouro, Integer.parseInt(numero),
+                    complemento, bairro, cidade, estado, CEP);
+
+            ArrayList<Object> listaObjetos = new ArrayList<>();
+            listaObjetos.add(consulta);
+            listaObjetos.add(endereco);
+            listaObjetos.add(paciente);
+            listaObjetos.add(medico);
+
+            ControladorDAO controladorDao = new ControladorDAO();
+            controladorDao.addObjeto(listaObjetos, "Consulta");
+            RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucessoLogado.jsp");
+            rd.forward(request, response);
+            }
+            
+        }
+
     }
-
-}
 //   ------>>>> SÃO OS DADOS DO ENDEREÇO <<<<-------
 //    int numero = Integer.parseInt(request.getParameter("numero"));
 //    String complemento = request.getParameter("complemento");

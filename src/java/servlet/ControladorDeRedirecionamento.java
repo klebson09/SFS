@@ -67,7 +67,7 @@ public class ControladorDeRedirecionamento extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("jsps/login2.jsp");
             rd.forward(request, response);
         }else if(values[0].equals("Sair")){
-        RequestDispatcher rd = request.getRequestDispatcher("jsps/indexLogado.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("jsps/SucessoSair.jsp");
             rd.forward(request, response);
         }
 

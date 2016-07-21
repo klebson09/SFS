@@ -21,30 +21,39 @@ public class ControllerCadastroExame extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        String[] values = request.getParameterValues("submit");
+        if (values[0].equals("Cancelar")) {
+            RequestDispatcher rd = request.getRequestDispatcher("jsps/indexLogado.jsp");
+            rd.forward(request, response);
+        } else if (values[0].equals("Cadastrar")) {
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
 
-        String descricaoConsulta = request.getParameter("descricaoConsulta");
-        String tipoExame = request.getParameter("tipoExame");
-        String especialidade = request.getParameter("especialidade");
-        String observacao = request.getParameter("observacao");
-        String dataExame = request.getParameter("dataExame");
-        
-        Exame exame = new Exame(tipoExame, especialidade, observacao, dataExame);
-        
-        Consulta consulta = new Consulta();
-        consulta.setDescricaoConsulta(descricaoConsulta);
-        
-        ControladorDAO controladorDao = new ControladorDAO();
-        ArrayList<Object> listaObjetos = new ArrayList<>();
-        
-        listaObjetos.add(exame);
-        listaObjetos.add(consulta);
-        
-        controladorDao.addObjeto(listaObjetos, "Exame");
-        RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
-        rd.forward(request, response);
+            String descricaoConsulta = request.getParameter("descricaoConsulta");
+            String tipoExame = request.getParameter("tipoExame");
+            String especialidade = request.getParameter("especialidade");
+            String observacao = request.getParameter("observacao");
+            String dataExame = request.getParameter("dataExame");
 
+            Exame exame = new Exame(tipoExame, especialidade, observacao, dataExame);
+
+            Consulta consulta = new Consulta();
+            consulta.setDescricaoConsulta(descricaoConsulta);
+
+            ControladorDAO controladorDao = new ControladorDAO();
+            ArrayList<Object> listaObjetos = new ArrayList<>();
+
+            listaObjetos.add(exame);
+            listaObjetos.add(consulta);
+
+            controladorDao.addObjeto(listaObjetos, "Exame");
+            RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucessoLogado.jsp");
+            rd.forward(request, response);
+            
+        }
+
+        }
     }
-}
