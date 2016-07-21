@@ -11,7 +11,6 @@
     <head>
         <!--META-->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Login Form</title>
         <link href="jsps/css/style_2.css" rel="stylesheet" type="text/css" />
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
@@ -42,8 +41,8 @@
             <!--END WRAPPER-->
 
             <!--GRADIENT--><div class="gradient">
-                <img src="jsps/images/morte_1.png" WIDTH="600" HEIGHT="500"></img>   
-                <h1>Servlet Exception</h1>
+                <img src="jsps/images/500.png" WIDTH="600" HEIGHT="500"></img>   
+                <h1>Error de servidor</h1>
             </div><!--END GRADIENT-->
 
     </body>

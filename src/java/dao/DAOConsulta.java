@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Paciente;
+import model.Pessoa;
 
 public class DAOConsulta implements Serializable {
 
@@ -220,5 +222,63 @@ public class DAOConsulta implements Serializable {
 
         return consultas;
     }
+    
+    public ArrayList<Consulta> listarConsultasPaciente(String email, String senha) {
+        ArrayList<Consulta> consultas = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
+        DAOPaciente daoPaciente =  new DAOPaciente();
+        try {
+            Paciente paciente = daoPaciente.buscarPaciente(email, senha) ;
+            Class.forName("com.mysql.jdbc.Driver"); //registrando o driver
+            con = DriverManager.getConnection(url, "root", "");
+            //conectando stmt = con.createStatement(); //criando um statement
+            stmt = con.prepareStatement("SELECT * FROM consulta WHERE Paciente_numSUS = ?");
+            stmt.setString(1, paciente.getNumSUS());
+            rs = stmt.executeQuery(); //executando a query
 
+            // o result set contém os resultados da operação
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+
+                consulta.setIdConsulta(rs.getInt("idConsulta"));
+                consulta.setPacienteIdPaciente(rs.getInt("Paciente_idPaciente"));
+                consulta.setPacienteNumSUS(rs.getString("Paciente_numSUS"));
+                consulta.setMedicoIdMedico(rs.getInt("MEdico_idMEdico"));
+                consulta.setMedicoCRM(rs.getString("MEdico_CRM"));
+                consulta.setDescricaoConsulta(rs.getString("descricaoConsulta"));
+                consulta.setDataConsulta(rs.getString("dataConsulta"));
+                consulta.setTipoConsulta(rs.getString("tipoConsulta"));
+                consulta.setObservacao(rs.getString("observacao"));
+                consulta.setIdEndereco(rs.getInt("idEndereco"));
+                consultas.add(consulta);
+            }
+        } catch (ClassNotFoundException ex) {
+            //Problemas no carregamento do driver
+            ex.printStackTrace();
+        } catch (SQLException ex) { //principal exceção JDBC
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return consultas;
+    }
 }

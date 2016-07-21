@@ -80,7 +80,9 @@
                     <!--END LOGIN FORM-->
 
                     <form name="formButton" action="<%= request.getContextPath()%>/ControladorDeRedirecionamento" method="POST">
-                        <input type="submit" name="opcao" class="button" value="NovoUsuario"></input>
+                        <label>Cadastre-se</label><br/>
+                        <input id="cadastroPaciente" type="submit" name="opcao" class="button" value="CadastrarPaciente" ></input>
+                        <input id="cadastroMedico" type="submit" name="opcao" class="button" value="CadastrarMedico" ></input>
                     </form>
                 </div>
                 <!--END CONTENT-->

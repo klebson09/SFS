@@ -171,4 +171,8 @@ public class ControladorDAO {
     public ArrayList<Consulta> buscarConsultas(){
         return daoconsulta.listarConsultas();
     }
+    
+    public ArrayList<Consulta> buscarConsultasPaciente(String email, String pwd){
+        return daoconsulta.listarConsultasPaciente(email, pwd);
+    }
 }

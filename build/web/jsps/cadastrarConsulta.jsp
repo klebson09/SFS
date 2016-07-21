@@ -71,7 +71,7 @@
                             Escolha o Médico:<br>
                             <c:forEach var="medico" items="${medicos.buscarMedicos()}"> 
                                     <td><c:out value="${medico.nome}" /></td>
-                                </c:forEach><br>
+                            </c:forEach><br>
                             
                             <label for="inputMedico">Escreva o nome do medico</label> <br>
                             <input id="inputMedico" type="text" name="medico"/><br>

@@ -4,10 +4,19 @@
     Author     : Aluno
 --%>
 
+<%@page import="controlador.Login.LoginBean"%>
+<%@page language="java" contentType="text/html" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.*"%>
+<%@page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-
-
+<jsp:useBean id="controladorDAO" class="servlet.ControladorDAO"/>
+<%
+    LoginBean bean= (LoginBean) session.getAttribute("bean");
+    String emailPaciente = bean.getEmail();
+    String senhaPaciente = bean.getPassword();
+%>
 <html>
     <head>
         <!--META-->
@@ -44,55 +53,26 @@
 
                     <div class="table">
                         <fieldset>
-                            <legend>Dados da Consulta</legend>
-                            Tipo Consulta
-                            <select name=tipo_consulta>
-                                <option>Clinico Geral</option>
-                                <option>Coloproctologista</option>
-                                <option>Nutricionista</option>
-                                <option>Traumatologia</option>
-                            </select><br> <br>
-                            Médico
-                            <select name=medico>
-                                <option>João Marcos</option>
-                                <option>Francisco José</option>
-                                <option>Mary Jane</option>
-                                <option>Leonardo Gonçalves</option>
-                            </select><br> <br>
-
-                        </fieldset>
-                    </div>
-
-                </div>
-
-                <div class="content">
-
-                    <div class="table">
-                        <fieldset>
                             <legend>Consultas</legend>
                             <table>
 
                                 <colgroup span="4"></colgroup>
                                 <tr>
-                                    <th>Médico Responsável</th>
-                                    <th >Paciente</th>
+                                    <th>Numero CRM Medico</th>
                                     <th>Data da Consulta</th>
-                                    <th>Local</th>
+                                    <th>Tipo da Consulta</th>
+                                    <th>Descricao da Consulta</th>
                                 </tr>
-
-                                <tr>
-                                    <td>João Marcos</td>
-                                    <td>Marco Augusto</td>
-                                    <td>14/10/2015 </td>
-                                    <td>Hospital Barão de Lucena</td>
-                                </tr>
-
-                                <tr>
-                                    <td>João Marcos</td>
-                                    <td>Lucas Andrade</td>
-                                    <td>30/10/2015</td>
-                                    <td>Hospital da Restauração</td>
-                                </tr>
+                                
+                                <c:forEach var="consulta" items="${controladorDAO.buscarConsultasPaciente(bean.getEmail(), bean.getPassword())}"> 
+                                    <tr>
+                                        <td><c:out value="${consulta.medicoCRM}" /></td>
+                                        <td><c:out value="${consulta.dataConsulta}" /></td>
+                                        <td><c:out value="${consulta.tipoConsulta}" /></td>
+                                        <td><c:out value="${consulta.descricaoConsulta}" /></td>
+          
+                                </c:forEach><br>
+                                
 
                             </table>
 

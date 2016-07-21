@@ -56,6 +56,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>ControllerListarConsulta</servlet-name>
+        <servlet-class>servlet.ControllerListarConsulta</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerListarConsulta</servlet-name>
+        <url-pattern>/ControllerListarConsulta</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
     </servlet>    
@@ -64,24 +73,46 @@
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
     
-    <erro-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/jsps/errorPages/erroGeral.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/jsps/errorPages/erroGeral.jsp</location>
+    </error-page>
+    
+    <error-page>
         <error-code>404</error-code>
-        <location>/erroGeral</location>
-    </erro-page>
+        <location>/jsps/errorPages/erro404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsps/errorPages/erro500.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>503</error-code>
+        <location>/jsps/errorPages/erroGeral.jsp</location>
+    </error-page>
     
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
-        <location>/erroGeral.jsp</location>
-    </error-page>    
+        <location>/jsps/errorPages/erroGeral.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>java.lang.NullPointerException</exception-type>
+        <location>/jsps/errorPages/erroGeral.jsp</location>
+    </error-page>     
     
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
     
     <welcome-file-list>
-        <!--        <welcome-file>jsps/endereco.jsp</welcome-file>-->
         <welcome-file>jsps/login2.jsp</welcome-file>
-        <!--                <welcome-file>jsps/indexLogado.jsp</welcome-file>-->
-        <!--        <welcome-file>jsps/listarExame.jsp</welcome-file>-->
     </welcome-file-list>
 </web-app>
