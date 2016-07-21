@@ -27,18 +27,19 @@ public class ControllerConsulta extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nomeMedico = request.getParameter("medico");
         String tipoConsulta = request.getParameter("tipoConsulta");
+        String dataConsulta = request.getParameter("dataConsulta");
         String observacao = request.getParameter("observacao");
-        
-        String nomePaciente = bean.getEmail();
-        String nomeSenha = bean.getPassword();
+        String descricaoConsulta = request.getParameter("descricaoConsulta");
         
         Paciente paciente = new Paciente(bean.getEmail(), bean.getPassword());
         Medico medico  = new Medico();
         medico.setNome(nomeMedico);
         
         Consulta consulta = new Consulta();
+        consulta.setDataConsulta(dataConsulta);
         consulta.setTipoConsulta(tipoConsulta);
         consulta.setObservacao(observacao);
+        consulta.setDescricaoConsulta(descricaoConsulta);
         
         String CEP = request.getParameter("CEP");
         String logradouro = request.getParameter("logradouro");

@@ -19,13 +19,14 @@ public class ControladorDAO {
     private final DAOMedico daomedico;
     private final DAOEndereco daoendereco;
     private final DAOConsulta daoconsulta;
+    private final DAOExame daoexame;
     private Integer idPessoa = null;
     private Integer idEndereco = null;
     private Paciente pacienteTmp = null;
     private Endereco enderecoTmp = null;
     private Medico medicoTmp = null;
     private Consulta consultaTmp = null;
-    private List<Exame> exameTmp = null;
+    private Exame exameTmp = null;
 
     public ControladorDAO() {
         this.daopessoa = new DAOPessoa();
@@ -33,6 +34,7 @@ public class ControladorDAO {
         this.daoendereco = new DAOEndereco();
         this.daomedico = new DAOMedico();
         this.daoconsulta = new DAOConsulta();
+        this.daoexame = new DAOExame();
     }
     
     /**
@@ -55,7 +57,7 @@ public class ControladorDAO {
             } else if (objetos.get(i).getClass() == Consulta.class) {
                 consultaTmp = (Consulta) objetos.get(i);
             } else if (objetos.get(i).getClass() == Exame.class) {
-                exameTmp.add((Exame)objetos.get(i));
+                exameTmp = (Exame) objetos.get(i);
             }
         }
         switch (classe) {
@@ -70,6 +72,7 @@ public class ControladorDAO {
                 AdicionarConsulta(consultaTmp, enderecoTmp, pacienteTmp, medicoTmp);
                 break;
             case "Exame":
+                AdicionarExame(exameTmp, consultaTmp);
                 break;
         }
     }
@@ -136,8 +139,11 @@ public class ControladorDAO {
         
         daoconsulta.adicionar(consulta);
     }
-    protected void AdicionarExame(Exame exame) {
-
+    protected void AdicionarExame(Exame exame, Consulta consulta) {
+        Consulta consultaCompleta;
+        consultaCompleta = daoconsulta.buscarConsultaPorDesc(consulta.getDescricaoConsulta());
+        exame.setConsultaIdConsulta(consultaCompleta.getIdConsulta());
+        daoexame.adicionar(exame);
     }
     
     protected Medico buscarMedico(String nomeMedico){
@@ -152,9 +158,17 @@ public class ControladorDAO {
         return medicoBusca;
     }
     
+    public ArrayList<Medico> buscarMedicos(){
+        return daomedico.listarMedicos();
+    }
+            
     protected Paciente buscarPaciente(String email, String pwd){
         Paciente pacienteBusca;
          pacienteBusca = daopaciente.buscarPaciente(email, pwd);
         return pacienteBusca;
+    }
+    
+    public ArrayList<Consulta> buscarConsultas(){
+        return daoconsulta.listarConsultas();
     }
 }

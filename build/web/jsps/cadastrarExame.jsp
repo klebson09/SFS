@@ -1,11 +1,17 @@
-<%-- 
+<%--
     Document   : cadastrarExame
     Created on : 14/10/2015, 09:30:33
     Author     : Aluno
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page language="java" contentType="text/html" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Medico" %>
+<%@page import="model.Consulta"%>
+<%@page import="java.util.*" %>
 <!DOCTYPE html>
+<jsp:useBean id="controlador" class="servlet.ControladorDAO"/>
 
 
 <html>
@@ -47,7 +53,7 @@
 
         <div>
             <h1>  <br/>  </h1>
-            <form name="cadastro-form" class="cadastro-form"method="POST" action="<%= request.getContextPath()%>/ControllerCadastroMedico">
+            <form name="cadastro-form" class="cadastro-form"method="POST" action="<%= request.getContextPath()%>/ControllerCadastroExame">
                 <!--HEADER-->
                 <div class="header">
                     <!--TITLE--><h1>Cadastrar Exame - SFS</h1><!--END TITLE-->
@@ -59,10 +65,12 @@
                     <div class="pessoal">
                         <fieldset>
                             <legend>Exames</legend>
-                            <label for="consultas" >Consulta</label> <br>
-                            <select name="consultas">
-                                <option>Medico1</option>
-                            </select><br> <br>
+                            Escolha a Consulta:<br>
+                            <c:forEach var="consulta" items="${controlador.buscarConsultas()}"> 
+                                    <td><c:out value="${consulta.descricaoConsulta}" /></td>
+                                </c:forEach><br>
+                            <label for="inputCosulta">Escreva a descricao da consulta</label> <br>
+                            <input id="inputCosulta" type="text" name="descricaoConsulta"/><br>
                             <label for="inputTipoExame" >Tipo do Exame</label> <br>
                             <input id="inputTipoExame" type="text" name="tipoExame"  class="input username" /> <br>
                             <label for="inputEspecialidade">Especialidade</label> <br>

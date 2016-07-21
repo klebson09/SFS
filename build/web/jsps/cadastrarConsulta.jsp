@@ -3,12 +3,19 @@
     Created on : 14/10/2015, 09:30:19
     Author     : Aluno
 --%>
-
+<%@page language="java" contentType="text/html" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Medico"%>
+<%@page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
-
+<jsp:useBean id="medicos" class="servlet.ControladorDAO"/>
+<%
+    // Create an ArrayList with test data
+    ArrayList listamedicos = medicos.buscarMedicos();
+    session.setAttribute("listaDeMedicos", listamedicos);
+%>
 <html>
     <head>
         <!--META-->
@@ -61,10 +68,19 @@
                                 <option>Nutricionista</option>
                                 <option>Traumatologia</option>
                             </select><br> <br>
-                            Médico
-                            <select name=medico>
-                                <option>Medico1</option>
-                            </select><br> <br>
+                            Escolha o Médico:<br>
+                            <c:forEach var="medico" items="${medicos.buscarMedicos()}"> 
+                                    <td><c:out value="${medico.nome}" /></td>
+                                </c:forEach><br>
+                            
+                            <label for="inputMedico">Escreva o nome do medico</label> <br>
+                            <input id="inputMedico" type="text" name="medico"/><br>
+                            
+                            <label for="inputDataConsulta">Data da Consulta</label> <br>
+                            <input id="inputDataConsulta" type="text" name="dataConsulta"/><br>
+                            
+                            <label for="descricaoConsulta">Descricao da Consulta</label> <br>
+                            <textarea rows="4" cols="50" name="descricaoConsulta"> </textarea><br>
                             Observação
                             <textarea rows="4" cols="50" name="observacao">	
                             </textarea>  <br>

@@ -6,17 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -29,8 +18,10 @@ public class Consulta implements Serializable {
     private String pacienteNumSUS;
     private int medicoIdMedico;
     private String medicoCRM;
+    private String descricaoConsulta;
     private String tipoConsulta;
     private String observacao;
+    private String dataConsulta;
     private byte[] arquivoConsulta;
     private Integer idEndereco;
     
@@ -55,12 +46,14 @@ public class Consulta implements Serializable {
     }
     
     public Consulta(int pacienteidPaciente, String pacientenumSUS, 
-            int medicoIdMedico, String medicoCRM, String tipoConsulta, 
-            String obs, int idEndereco) {
+            int medicoIdMedico, String medicoCRM, String descricaoConsulta,
+            String dataConsulta,String tipoConsulta, String obs, int idEndereco) {
         this.pacienteIdPaciente = pacienteidPaciente;
         this.pacienteNumSUS = pacientenumSUS;
         this.medicoIdMedico = medicoIdMedico;
         this.medicoCRM = medicoCRM;
+        this.descricaoConsulta = descricaoConsulta;
+        this.dataConsulta = dataConsulta;
         this.tipoConsulta = tipoConsulta;
         this.observacao = obs;
         this.idEndereco = idEndereco;
@@ -106,6 +99,14 @@ public class Consulta implements Serializable {
         this.medicoCRM = mEdicoCRM;
     }
 
+    public String getDescricaoConsulta() {
+        return descricaoConsulta;
+    }
+
+    public void setDescricaoConsulta(String descricaoConsulta) {
+        this.descricaoConsulta = descricaoConsulta;
+    }
+    
     public String getTipoConsulta() {
         return tipoConsulta;
     }
@@ -120,6 +121,14 @@ public class Consulta implements Serializable {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public String getDataConsulta() {
+        return dataConsulta;
+    }
+
+    public void setDataConsulta(String dataConsulta) {
+        this.dataConsulta = dataConsulta;
     }
 
     public byte[] getArquivoConsulta() {

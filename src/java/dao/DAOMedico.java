@@ -238,7 +238,7 @@ public class DAOMedico {
     }
 
     //lista de medicos kl
-    public List<Medico> getListar() {
+    public ArrayList<Medico> listarMedicos() {
 
         Connection con = null;
         PreparedStatement stmt = null;
@@ -246,7 +246,7 @@ public class DAOMedico {
         Medico medico;
         DAOPessoa daoPessoa = new DAOPessoa();
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
-        List<Medico> medicos = new ArrayList<>();
+        ArrayList<Medico> medicos = new ArrayList<>();
         List<Pessoa> pessoas;
 
         pessoas = daoPessoa.listarPessoa();
@@ -271,8 +271,10 @@ public class DAOMedico {
             }
             for (int i = 0; i < medicos.size(); i++) {
                 for (int j = 0; j < pessoas.size(); j++) {
-                    if (medicos.get(i).getPessoaIdPessoa().equals(pessoas.get(j).getIdPessoa())) {
-                        medicos.get(i).setNome(pessoas.get(j).getNome());
+                    int idMedico = medicos.get(i).getPessoaIdPessoa();
+                    int idPessoa = pessoas.get(j).getIdPessoa();
+                    if (idMedico == idPessoa) {
+                        medicos.get(i).parser(pessoas.get(j));
                     }
                 }
             }

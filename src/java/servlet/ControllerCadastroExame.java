@@ -13,31 +13,36 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Endereco;
-import model.Medico;
+import model.Exame;
+import model.Consulta;
 
 public class ControllerCadastroExame extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //todo valor que vem do formulario html ou jsp é string e precisa converter para int
-        //obs. tipo data, tbm converter
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        String nome = request.getParameter("nome");
-        String dataNasc = request.getParameter("dataNasc");
-        String sexo = request.getParameter("sexo");
-        String CPF = request.getParameter("cpf");
+        String descricaoConsulta = request.getParameter("descricaoConsulta");
+        String tipoExame = request.getParameter("tipoExame");
+        String especialidade = request.getParameter("especialidade");
+        String observacao = request.getParameter("observacao");
+        String dataExame = request.getParameter("dataExame");
         
+        Exame exame = new Exame(tipoExame, especialidade, observacao, dataExame);
+        
+        Consulta consulta = new Consulta();
+        consulta.setDescricaoConsulta(descricaoConsulta);
         
         ControladorDAO controladorDao = new ControladorDAO();
-        
         ArrayList<Object> listaObjetos = new ArrayList<>();
         
+        listaObjetos.add(exame);
+        listaObjetos.add(consulta);
         
-        controladorDao.addObjeto(listaObjetos, "Medico");
+        controladorDao.addObjeto(listaObjetos, "Exame");
         RequestDispatcher rd = request.getRequestDispatcher("jsps/cadastroSucesso.jsp");
         rd.forward(request, response);
 

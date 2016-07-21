@@ -310,7 +310,6 @@ public class DAOPessoa {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String url = "jdbc:mysql://localhost/bd_sistema_ficha_saude";
-        Pessoa pessoa = new Pessoa();
 
         try {
 
@@ -324,13 +323,20 @@ public class DAOPessoa {
 
             // o result set contém os resultados da operação
             while (rs.next()) {
+                Pessoa pessoa = new Pessoa();
                 pessoa.setIdPessoa(rs.getInt("idPessoa"));
                 pessoa.setNome(rs.getString("nome"));
                 pessoa.setDataNasc(rs.getString("data_nasc"));
+                pessoa.setSexo(rs.getString("sexo"));
                 pessoa.setCPF(rs.getString("CPF"));
                 pessoa.setRG(rs.getString("RG"));
+                pessoa.setNaturalidade(rs.getString("naturalidade"));
+                pessoa.setEstadoCivil(rs.getString("estadoCivil"));
                 pessoa.setEmail(rs.getString("email"));
+                pessoa.setTelefone(rs.getString("telefone"));
+                pessoa.setCelular(rs.getString("celular"));
                 pessoa.setPwd(rs.getString("pwd"));
+                pessoa.setIdEndereco(rs.getInt("idEndereco"));
                 pessoas.add(pessoa);
             }
         } catch (ClassNotFoundException ex) {

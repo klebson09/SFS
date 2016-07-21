@@ -26,6 +26,14 @@ public class Exame implements Serializable {
         this.idExame = idExame;
     }
     
+    public Exame(String tipoExame, String especialidade, String observacao,
+            String dataExame) {
+        this.tipoExame = tipoExame;
+        this.especialidade = especialidade;
+        this.observacao = observacao;
+        this.dataExame = dataExame;
+    }
+    
     public Exame(int consultaidConsulta, String tipoExame, String especialidade,
             String dataExame) {
         this.consultaIdConsulta = consultaidConsulta;
