@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-
     <servlet>
         <servlet-name>ControllerLogin</servlet-name>
         <servlet-class>controlador.Login.ControllerLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerSair</servlet-name>
+        <servlet-class>servlet.ControllerSair</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerLogin</servlet-name>
         <url-pattern>/ControllerLogin</url-pattern>
     </servlet-mapping>
-        
     <servlet>
         <servlet-name>ControllerCadastroPaciente</servlet-name>
         <servlet-class>servlet.ControllerCadastroPaciente</servlet-class>
@@ -18,7 +20,6 @@
         <servlet-name>ControllerCadastroPaciente</servlet-name>
         <url-pattern>/ControllerCadastroPaciente</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ControllerCadastroMedico</servlet-name>
         <servlet-class>servlet.ControllerCadastroMedico</servlet-class>
@@ -27,7 +28,6 @@
         <servlet-name>ControllerCadastroMedico</servlet-name>
         <url-pattern>/ControllerCadastroMedico</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ControllerCadastroExame</servlet-name>
         <servlet-class>servlet.ControllerCadastroExame</servlet-class>
@@ -36,7 +36,6 @@
         <servlet-name>ControllerCadastroExame</servlet-name>
         <url-pattern>/ControllerCadastroExame</url-pattern>
     </servlet-mapping>
-       
     <servlet>
         <servlet-name>ControllerEndereco</servlet-name>
         <servlet-class>servlet.ControllerEndereco</servlet-class>
@@ -44,8 +43,7 @@
     <servlet-mapping>
         <servlet-name>ControllerEndereco</servlet-name>
         <url-pattern>/ControllerEndereco</url-pattern>
-    </servlet-mapping>    
-    
+    </servlet-mapping>
     <servlet>
         <servlet-name>ControllerConsulta</servlet-name>
         <servlet-class>servlet.ControllerConsulta</servlet-class>
@@ -54,30 +52,29 @@
         <servlet-name>ControllerConsulta</servlet-name>
         <url-pattern>/ControllerConsulta</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <servlet-class>servlet.ControladorDeRedirecionamento</servlet-class>
-    </servlet>    
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorDeRedirecionamento</servlet-name>
         <url-pattern>/ControladorDeRedirecionamento</url-pattern>
     </servlet-mapping>
-    
     <erro-page>
         <error-code>404</error-code>
         <location>/erroGeral</location>
     </erro-page>
-    
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/erroGeral.jsp</location>
-    </error-page>    
-    
+    </error-page>
+    <servlet-mapping>
+        <servlet-name>ControllerSair</servlet-name>
+        <url-pattern>/ControllerSair</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <!--        <welcome-file>jsps/endereco.jsp</welcome-file>-->
         <welcome-file>jsps/login2.jsp</welcome-file>
